@@ -1,0 +1,148 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #000000;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.header-left h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.header-left h1 a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.header-left h1 a:hover {
+    text-decoration: underline;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-right img {
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+}
+
+.about-link {
+    text-decoration: none;
+    color: #000000;
+    font-size: 16px;
+}
+
+.center-form {
+    position: absolute;
+    top: calc(50% + 30px);
+    /* Add half of the header height */
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.center-form form {
+    display: flex;
+}
+
+.center-form input[type="email"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #000000;
+    border-right: none;
+}
+
+.center-form button {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #000000;
+    background-color: #000000;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.message {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+#gameCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+    border: 1px solid red;
+}
+
+.banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header-left h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #000000;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.linkedin-link {
+    text-decoration: none;
+    color: #000000;
+    font-size: 16px;
+    margin-right: 15px;
+}
+
+.header-right a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 16px;
+}
+
+.header-right a:hover {
+    text-decoration: underline;
+}
+
+.about-link {
+    text-decoration: none;
+    color: #000000;
+    font-size: 16px;
+}
+
+.content {
+    margin-top: 60px;
+    /* Adjust this value based on your header height */
+}

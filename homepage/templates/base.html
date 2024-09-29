@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>the corner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+    <header class="banner">
+        <div class="header-content">
+            <div class="header-left">
+                <h1><a href="{{ url_for('index') }}">the corner</a></h1>
+            </div>
+            <div class="header-right">
+                <a href="https://www.linkedin.com/in/philippwarmer/" target="_blank" class="linkedin-link">LinkedIn</a>
+                <a href="{{ url_for('about') }}" class="about-link">About</a>
+            </div>
+        </div>
+    </header>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+    <!-- Game of Life Scripts -->
+    <script src="{{ url_for('static', filename='js/game_of_life.js') }}"></script>
+</body>
+
+</html>
