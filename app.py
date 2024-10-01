@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify
 import sqlite3
 import re
 from datetime import datetime
+import os
+import platform
 
 app = Flask(__name__)
 
@@ -77,4 +79,14 @@ def get_cells_to_toggle(x, y):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    is_mac = platform.system() == "Darwin"
+    is_production = os.environ.get("PRODUCTION", "false").lower() == "true"
+
+    if is_mac and not is_production:
+        # Running on Mac in development mode
+        app.run(debug=True)
+    else:
+        # Running in production or non-Mac environment
+        from flup.server.fcgi import WSGIServer
+
+        WSGIServer(app).run()
