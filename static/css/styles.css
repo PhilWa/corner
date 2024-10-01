@@ -49,20 +49,36 @@ header {
 .center-form {
     position: absolute;
     top: calc(50% + 30px);
-    /* Add half of the header height */
     left: 50%;
     transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    /* Increased opacity */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    /* Increased shadow */
+    border: 1px solid #000;
+    /* Added border for visibility */
+    min-width: 300px;
+    /* Ensure minimum width */
 }
 
 .center-form form {
     display: flex;
+    flex-direction: column;
+    /* Stack elements vertically */
+    align-items: center;
+    /* Center align items */
 }
 
 .center-form input[type="email"] {
     padding: 10px;
     font-size: 16px;
     border: 1px solid #000000;
-    border-right: none;
+    width: 100%;
+    /* Full width */
+    margin-bottom: 10px;
+    /* Space between input and button */
 }
 
 .center-form button {
@@ -72,11 +88,14 @@ header {
     background-color: #000000;
     color: #ffffff;
     cursor: pointer;
+    width: 100%;
+    /* Full width */
 }
 
 .message {
     margin-top: 10px;
     font-size: 14px;
+    text-align: center;
 }
 
 #gameCanvas {
@@ -86,7 +105,6 @@ header {
     z-index: -1;
     width: 100vw;
     height: 100vh;
-    border: 1px solid red;
 }
 
 .banner {
@@ -145,4 +163,20 @@ header {
 .content {
     margin-top: 60px;
     /* Adjust this value based on your header height */
+}
+
+.newsletter-info {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    /* Increased opacity */
+    padding: 5px;
+    border-radius: 3px;
+}
+
+/* Debugging styles */
+.center-form * {
+    /* Add red border to all elements inside center-form */
 }

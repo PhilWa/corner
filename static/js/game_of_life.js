@@ -46,7 +46,7 @@ function createGrid() {
     for (let i = 0; i < gridWidth; i++) {
         grid[i] = new Array(gridHeight);
         for (let j = 0; j < gridHeight; j++) {
-            grid[i][j] = Math.random() > 0.8 ? 1 : 0;
+            grid[i][j] = Math.random() > 0.85 ? 1 : 0;
         }
     }
     return grid;
@@ -60,7 +60,9 @@ function drawGrid() {
             let nextState = nextGrid[x][y];
             let cellValue = currentState + (nextState - currentState) * (transitionProgress / transitionDuration);
 
-            ctx.fillStyle = `rgba(0, 0, 0, ${cellValue})`;
+            // Reduce the opacity range for a softer effect
+            let opacity = cellValue * 0.55; // Adjust this value to control the intensity (0.3 is 30% of the original opacity)
+            ctx.fillStyle = `rgba(0, 0, 0, ${opacity})`;
             ctx.fillRect(
                 x * cellSize,
                 y * cellSize,
