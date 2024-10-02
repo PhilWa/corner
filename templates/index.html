@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="center-form">
+    <h2 class="newsletter-title">News & Views on Tech in Switzerland</h2>
     <form method="post" action="{{ url_for('index') }}">
         <input type="email" name="email" placeholder="Enter your email" required>
         <button type="submit">Sign Up</button>
@@ -8,7 +9,6 @@
     {% if message %}
     <p class="message">{{ message }}</p>
     {% endif %}
-    <p class="newsletter-info">News around Tech in Switzerland</p>
 </div>
 <canvas id="gameCanvas"></canvas>
 {% endblock %}

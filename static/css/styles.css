@@ -51,45 +51,39 @@ header {
     top: calc(50% + 30px);
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.9);
-    /* Increased opacity */
+    background-color: white;
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    /* Increased shadow */
-    border: 1px solid #000;
-    /* Added border for visibility */
-    min-width: 300px;
-    /* Ensure minimum width */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+.newsletter-title {
+    text-align: left;
+    margin: 0 0 20px 0;
+    /* Remove top margin, keep bottom margin */
+    font-size: 24px;
+    color: #333;
 }
 
 .center-form form {
     display: flex;
     flex-direction: column;
-    /* Stack elements vertically */
-    align-items: center;
-    /* Center align items */
 }
 
 .center-form input[type="email"] {
     padding: 10px;
     font-size: 16px;
     border: 1px solid #000000;
-    width: 100%;
-    /* Full width */
     margin-bottom: 10px;
-    /* Space between input and button */
 }
 
 .center-form button {
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #000000;
+    border: none;
     background-color: #000000;
     color: #ffffff;
     cursor: pointer;
-    width: 100%;
-    /* Full width */
 }
 
 .message {
@@ -161,22 +155,44 @@ header {
 }
 
 .content {
-    margin-top: 60px;
+    margin-top: 30px;
+    /* Reduced from 60px */
+    margin-bottom: 30px;
+    /* Reduced to match the top margin */
+    /* Add this line to create space for the bottom banner */
     /* Adjust this value based on your header height */
 }
 
 .newsletter-info {
     margin-top: 10px;
     font-size: 14px;
-    color: #333;
+    color: #666;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.9);
-    /* Increased opacity */
-    padding: 5px;
-    border-radius: 3px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
 }
 
 /* Debugging styles */
 .center-form * {
     /* Add red border to all elements inside center-form */
+}
+
+.bottom-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    height: 20px;
+    /* Reduce the height */
+}
+
+.bottom-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
