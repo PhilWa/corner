@@ -51,11 +51,6 @@ def index():
     return render_template("index.html", message=message)
 
 
-@app.route("/about")
-def about():
-    return render_template("about.html")
-
-
 @app.route("/toggle_cells", methods=["POST"])
 def toggle_cells():
     data = request.get_json()
