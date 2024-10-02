@@ -1,14 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="center-form">
-    <h2 class="newsletter-title">News & Views on Tech in Switzerland</h2>
-    <form method="post" action="{{ url_for('index') }}">
-        <input type="email" name="email" placeholder="Enter your email" required>
-        <button type="submit">Sign Up</button>
-    </form>
-    {% if message %}
-    <p class="message">{{ message }}</p>
-    {% endif %}
+<div class="initial-view">
+    <div class="center-form">
+        <h2 class="newsletter-title">News & Views on Tech in Switzerland</h2>
+        <form method="post" action="{{ url_for('index') }}">
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        {% if message %}
+        <p class="message">{{ message }}</p>
+        {% endif %}
+    </div>
+</div>
+<div class="scrollable-content">
+    <div class="content-container">
+        <div class="content-preview">
+            <h2 class="section-title">news & views</h2>
+        </div>
+        <div class="full-content">
+            <!-- Add your full news and views content here -->
+            <h3>Latest News</h3>
+            <p>Detailed article 1...</p>
+            <h3>Industry Insights</h3>
+            <p>Detailed article 2...</p>
+            <!-- Add more content as needed -->
+        </div>
+    </div>
 </div>
 <canvas id="gameCanvas"></canvas>
 {% endblock %}

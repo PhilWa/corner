@@ -14,7 +14,7 @@ const updateInterval = 800; // Time between updates in milliseconds
 // Function to resize canvas and adjust cell size
 function resizeCanvas() {
     canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight - 80; // Subtract space for top banner and smaller bottom banner
+    canvas.height = window.innerHeight;
     cellSize = Math.min(canvas.width / gridSize, canvas.height / gridSize);
     gridWidth = Math.ceil(canvas.width / cellSize);
     gridHeight = Math.ceil(canvas.height / cellSize);

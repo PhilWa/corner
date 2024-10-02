@@ -4,6 +4,8 @@ body {
     background-color: #ffffff;
     color: #000000;
     font-family: Arial, sans-serif;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 header {
@@ -48,13 +50,14 @@ header {
 
 .center-form {
     position: absolute;
-    top: calc(50% + 30px);
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 300px;
+    z-index: 2;
 }
 
 .newsletter-title {
@@ -99,16 +102,17 @@ header {
     z-index: -1;
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 }
 
 .banner {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
+    top: 0;
     background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #e0e0e0;
 }
 
 .header-content {
@@ -155,12 +159,8 @@ header {
 }
 
 .content {
-    margin-top: 30px;
-    /* Reduced from 60px */
-    margin-bottom: 30px;
-    /* Reduced to match the top margin */
-    /* Add this line to create space for the bottom banner */
-    /* Adjust this value based on your header height */
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .newsletter-info {
@@ -178,21 +178,46 @@ header {
     /* Add red border to all elements inside center-form */
 }
 
-.bottom-banner {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: white;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    height: 20px;
-    /* Reduce the height */
-}
-
-.bottom-content {
+.initial-view {
+    height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    position: relative;
+}
+
+.scrollable-content {
+    background-color: white;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    width: 100%;
+}
+
+.content-preview {
+    height: 10vh;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.full-content {
+    padding: 20px;
+}
+
+.section-title {
+    margin: 0;
+    padding: 20px;
+    font-size: 24px;
+    text-align: left;
+}
+
+.content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.content-preview {
+    padding: 0;
 }

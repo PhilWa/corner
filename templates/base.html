@@ -23,16 +23,9 @@
             </div>
         </div>
     </header>
-    <div class="content">
-        {% block content %}{% endblock %}
-    </div>
+    {% block content %}{% endblock %}
     <!-- Game of Life Scripts -->
     <script src="{{ url_for('static', filename='js/game_of_life.js') }}"></script>
-    <footer class="bottom-banner">
-        <div class="bottom-content">
-            <!-- Empty content -->
-        </div>
-    </footer>
 </body>
 
 </html>
