@@ -234,6 +234,9 @@ header {
     margin: 10px;
     background-color: #f9f9f9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: 500px;
+    /* Adjust as needed */
 }
 
 .card:last-child {
@@ -246,13 +249,50 @@ header {
     color: #333;
 }
 
-.card p {
+.card .content {
     font-size: 14px;
     color: #666;
     margin-bottom: 10px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: inherit;
+    /* Use the same font as the rest of the page */
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    overflow: visible;
 }
 
 .card .misc {
     font-style: italic;
     color: #999;
+}
+
+.card .links {
+    margin-bottom: 10px;
+}
+
+.card .links a {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.card .links a:hover {
+    background-color: #e0e0e0;
+}
+
+.card .links .spotify-link {
+    background-color: #1DB954;
+    color: white;
+}
+
+.card .links .post-link {
+    background-color: #0077B5;
+    color: white;
 }

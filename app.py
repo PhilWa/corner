@@ -4,8 +4,8 @@ import re
 from datetime import datetime
 import os
 import platform
-import csv
 from collections import namedtuple
+import csv
 
 app = Flask(__name__)
 
@@ -78,13 +78,17 @@ def get_cells_to_toggle(x, y):
 
 
 def read_news_from_tsv():
-    News = namedtuple("News", ["id", "date", "content", "misc"])
+    News = namedtuple("News", ["id", "date", "content", "misc", "to_pod", "to_post"])
     news_items = []
-    with open("news.tsv", "r") as tsv_file:
-        reader = csv.reader(tsv_file, delimiter="\t")
+    with open("news.tsv", "r", encoding="utf-8") as tsv_file:
+        reader = csv.reader(tsv_file, delimiter="|")
         next(reader)  # Skip header row
         for row in reader:
-            news_items.append(News(*row))
+            # Unescape newlines in content
+            row[2] = row[2].replace("\\n", "\n")
+            # Ensure we have all fields, use empty strings if missing
+            row += [""] * (6 - len(row))
+            news_items.append(News(*row[:6]))  # Only use the first 6 fields
     return sorted(news_items, key=lambda x: x.date, reverse=True)[
         :3
     ]  # Return latest 3 items
