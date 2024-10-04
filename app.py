@@ -4,6 +4,8 @@ import re
 from datetime import datetime
 import os
 import platform
+import csv
+from collections import namedtuple
 
 app = Flask(__name__)
 
@@ -48,7 +50,9 @@ def index():
                 message = "Email saved successfully!"
             except sqlite3.IntegrityError:
                 message = "This email is already registered."
-    return render_template("index.html", message=message)
+
+    news_items = read_news_from_tsv()
+    return render_template("index.html", message=message, news_items=news_items)
 
 
 @app.route("/toggle_cells", methods=["POST"])
@@ -71,6 +75,19 @@ def get_cells_to_toggle(x, y):
     random_cells = random.sample(positions, 5)
     toggle_positions = [(x + dx, y + dy) for dx, dy in random_cells]
     return toggle_positions
+
+
+def read_news_from_tsv():
+    News = namedtuple("News", ["id", "date", "content", "misc"])
+    news_items = []
+    with open("news.tsv", "r") as tsv_file:
+        reader = csv.reader(tsv_file, delimiter="\t")
+        next(reader)  # Skip header row
+        for row in reader:
+            news_items.append(News(*row))
+    return sorted(news_items, key=lambda x: x.date, reverse=True)[
+        :3
+    ]  # Return latest 3 items
 
 
 if __name__ == "__main__":

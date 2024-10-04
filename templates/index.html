@@ -19,18 +19,15 @@
         </div>
         <div class="full-content">
             <div class="card-container">
+                {% for item in news_items %}
                 <div class="card">
-                    <h3>Latest News</h3>
-                    <p>Detailed article 1...</p>
+                    <h3>{{ item.date }}</h3>
+                    <p>{{ item.content }}</p>
+                    {% if item.misc %}
+                    <p class="misc">{{ item.misc }}</p>
+                    {% endif %}
                 </div>
-                <div class="card">
-                    <h3>Industry Insights</h3>
-                    <p>Detailed article 2...</p>
-                </div>
-                <div class="card">
-                    <h3>Tech Trends</h3>
-                    <p>Detailed article 3...</p>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
