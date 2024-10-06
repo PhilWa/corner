@@ -272,14 +272,22 @@ header {
     border-right: 1px solid #e0e0e0;
     margin: 10px;
     background-color: #ffffff;
-    /* Change to white */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     max-height: 500px;
+    border-radius: 8px;
+    /* Added rounded corners */
+    transition: box-shadow 0.3s ease;
+    /* Smooth transition for hover effect */
 }
 
 .card:last-child {
     border-right: none;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    /* Subtle lift effect on hover */
 }
 
 .card h3 {
@@ -296,7 +304,6 @@ header {
     word-wrap: break-word;
     font-family: inherit;
     background-color: #ffffff;
-    /* Change to white */
     border: none;
     padding: 0;
     overflow: visible;
@@ -320,6 +327,7 @@ header {
     text-decoration: none;
     border-radius: 5px;
     font-size: 12px;
+    transition: background-color 0.3s ease;
 }
 
 .card .links a:hover {
@@ -332,6 +340,7 @@ header {
 }
 
 .card .links .post-link {
-    background-color: #0077B5;
+    background-color: #008080;
+    /* Changed to teal to match the new color scheme */
     color: white;
 }
