@@ -351,21 +351,41 @@ header {
 /* Mobile optimizations */
 @media screen and (max-width: 768px) {
     .center-form {
-        width: 90%;
-        max-width: 400px;
-        padding: 20px;
+        width: 100%;
+        max-width: none;
+        padding: 30px 20px;
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        box-shadow: none;
+        border-radius: 0;
     }
 
     .newsletter-title {
-        font-size: 20px;
+        font-size: 24px;
+        margin-bottom: 20px;
     }
 
     .center-form input[type="email"],
     .center-form button {
-        font-size: 16px;
-        padding: 10px 15px;
+        font-size: 18px;
+        padding: 15px;
+        margin-bottom: 20px;
     }
 
+    .center-form button {
+        padding: 15px 20px;
+    }
+
+    .initial-view {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* Card styles for mobile */
     .card-container {
         flex-direction: column;
     }
@@ -380,4 +400,17 @@ header {
     .card:last-child {
         border-bottom: none;
     }
+}
+
+/* Existing card styles */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    flex: 1 1 300px;
+    margin: 10px;
+    /* Other existing card styles remain the same */
 }
