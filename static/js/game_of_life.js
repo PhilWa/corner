@@ -54,6 +54,13 @@ function createGrid() {
 
 function drawGrid() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Create an offscreen canvas for the blur effect
+    let offscreenCanvas = document.createElement('canvas');
+    offscreenCanvas.width = canvas.width;
+    offscreenCanvas.height = canvas.height;
+    let offscreenCtx = offscreenCanvas.getContext('2d');
+
     for (let x = 0; x < gridWidth; x++) {
         for (let y = 0; y < gridHeight; y++) {
             let currentState = grid[x][y];
@@ -61,9 +68,9 @@ function drawGrid() {
             let cellValue = currentState + (nextState - currentState) * (transitionProgress / transitionDuration);
 
             // Reduce the opacity range for a softer effect
-            let opacity = cellValue * 0.55; // Adjust this value to control the intensity (0.3 is 30% of the original opacity)
-            ctx.fillStyle = `rgba(0, 0, 0, ${opacity})`;
-            ctx.fillRect(
+            let opacity = cellValue * 0.55;
+            offscreenCtx.fillStyle = `rgba(0, 0, 0, ${opacity})`;
+            offscreenCtx.fillRect(
                 x * cellSize,
                 y * cellSize,
                 cellSize,
@@ -71,6 +78,11 @@ function drawGrid() {
             );
         }
     }
+
+    // Apply blur effect
+    ctx.filter = 'blur(1.5px)';
+    ctx.drawImage(offscreenCanvas, 0, 0);
+    ctx.filter = 'none';
 }
 
 function updateGrid() {

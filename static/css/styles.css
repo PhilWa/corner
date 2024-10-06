@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
 body {
     margin: 0;
     padding: 0;
@@ -55,43 +57,73 @@ header {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #f0f0f0;
-    /* Slightly darker off-white for contrast */
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    background-color: #ffffff;
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 340px;
     z-index: 2;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .newsletter-title {
-    text-align: left;
-    margin: 0 0 20px 0;
-    /* Remove top margin, keep bottom margin */
-    font-size: 24px;
+    text-align: center;
+    margin: 0 0 25px 0;
+    font-size: 22px;
     color: #333;
+    font-weight: 600;
+    letter-spacing: -0.5px;
 }
 
 .center-form form {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .center-form input[type="email"] {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #000000;
-    margin-bottom: 10px;
-    background-color: #ffffff;
-    /* Ensure it's white */
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 14px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+.center-form input[type="email"]::placeholder {
+    color: #aaa;
+}
+
+.center-form input[type="email"]:focus {
+    outline: none;
+    border-color: #008080;
+    box-shadow: 0 0 0 2px rgba(0, 128, 128, 0.2);
 }
 
 .center-form button {
-    padding: 10px;
+    width: 100%;
+    padding: 12px 20px;
     font-size: 16px;
+    font-weight: 500;
     border: none;
-    background-color: #000000;
+    background-color: #008080;
     color: #ffffff;
     cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.center-form button:hover {
+    background-color: #006666;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.center-form button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .message {

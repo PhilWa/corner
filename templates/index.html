@@ -4,7 +4,7 @@
     <div class="center-form">
         <h2 class="newsletter-title">Tech Stories in Switzerland</h2>
         <form method="post" action="{{ url_for('index') }}">
-            <input type="email" name="email" placeholder="Enter your email" required>
+            <input type="email" name="email" placeholder="Your email for weekly updates" required>
             <button type="submit">Sign Up</button>
         </form>
         {% if message %}
@@ -15,7 +15,7 @@
 <div class="scrollable-content">
     <div class="content-container">
         <div class="content-preview">
-            <h2 class="section-title">news & views</h2>
+            <h2 class="section-title">latest stories</h2>
         </div>
         <div class="full-content">
             <div class="card-container">

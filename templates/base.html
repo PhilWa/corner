@@ -26,6 +26,21 @@
     {% block content %}{% endblock %}
     <!-- Game of Life Scripts -->
     <script src="{{ url_for('static', filename='js/game_of_life.js') }}"></script>
+    <script>
+        document.querySelector('.center-form button').addEventListener('mousemove', function (e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            this.style.setProperty('--mouse-x', `${x}px`);
+            this.style.setProperty('--mouse-y', `${y}px`);
+        });
+
+        document.querySelector('.center-form button').addEventListener('mouseleave', function () {
+            this.style.setProperty('--mouse-x', '50%');
+            this.style.setProperty('--mouse-y', '50%');
+        });
+    </script>
 </body>
 
 </html>
