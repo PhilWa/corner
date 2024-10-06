@@ -59,8 +59,8 @@ header {
     transform: translate(-50%, -50%);
     background-color: #ffffff;
     padding: 30px;
-    box-shadow: 0 4px 15px rgba(0, 128, 128, 0.2);
-    /* Teal shadow */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Reverted to grey shadow */
     width: 340px;
     z-index: 2;
     border-radius: 8px;
@@ -245,16 +245,18 @@ header {
 }
 
 .section-title {
-    margin: 0;
-    padding: 20px;
     font-size: 24px;
-    text-align: left;
+    color: #333;
+    margin: 0 0 20px 0;
+    padding: 0;
+    text-transform: lowercase;
+    /* Changed from capitalize to lowercase */
 }
 
 .content-container {
+    padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
 }
 
 .content-preview {
@@ -265,11 +267,12 @@ header {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin: -10px;
+    /* Negative margin to counteract card margins */
 }
 
 .card {
     flex: 1 1 300px;
-    /* This allows cards to grow and shrink, with a minimum width of 300px */
     margin: 10px;
     padding: 20px;
     border-right: 1px solid #e0e0e0;
@@ -400,17 +403,15 @@ header {
     .card:last-child {
         border-bottom: none;
     }
-}
 
-/* Existing card styles */
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
+    .content-container {
+        padding: 15px;
+    }
 
-.card {
-    flex: 1 1 300px;
-    margin: 10px;
-    /* Other existing card styles remain the same */
+    .section-title {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    /* ... other mobile styles ... */
 }
