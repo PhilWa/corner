@@ -263,12 +263,14 @@ header {
 
 .card-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    margin-top: 20px;
 }
 
 .card {
-    flex: 1;
+    flex: 1 1 300px;
+    /* This allows cards to grow and shrink, with a minimum width of 300px */
+    margin: 10px;
     padding: 20px;
     border-right: 1px solid #e0e0e0;
     margin: 10px;
@@ -344,4 +346,38 @@ header {
     background-color: #008080;
     /* Changed to teal to match the new color scheme */
     color: white;
+}
+
+/* Mobile optimizations */
+@media screen and (max-width: 768px) {
+    .center-form {
+        width: 90%;
+        max-width: 400px;
+        padding: 20px;
+    }
+
+    .newsletter-title {
+        font-size: 20px;
+    }
+
+    .center-form input[type="email"],
+    .center-form button {
+        font-size: 16px;
+        padding: 10px 15px;
+    }
+
+    .card-container {
+        flex-direction: column;
+    }
+
+    .card {
+        width: 100%;
+        margin: 10px 0;
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .card:last-child {
+        border-bottom: none;
+    }
 }
