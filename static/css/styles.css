@@ -354,41 +354,33 @@ header {
 /* Mobile optimizations */
 @media screen and (max-width: 768px) {
     .center-form {
-        width: 100%;
-        max-width: none;
-        padding: 30px 20px;
+        width: 90%;
+        max-width: 400px;
+        padding: 20px;
+        margin: 20px auto;
         position: relative;
         top: auto;
         left: auto;
         transform: none;
-        box-shadow: none;
-        border-radius: 0;
     }
 
     .newsletter-title {
-        font-size: 24px;
-        margin-bottom: 20px;
+        font-size: 20px;
+        margin-bottom: 15px;
     }
 
     .center-form input[type="email"],
     .center-form button {
-        font-size: 18px;
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-
-    .center-form button {
-        padding: 15px 20px;
+        font-size: 16px;
+        padding: 12px;
+        margin-bottom: 15px;
     }
 
     .initial-view {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+        min-height: auto;
+        padding: 20px 0;
     }
 
-    /* Card styles for mobile */
     .card-container {
         flex-direction: column;
     }
@@ -398,6 +390,7 @@ header {
         margin: 10px 0;
         border-right: none;
         border-bottom: 1px solid #e0e0e0;
+        max-height: none;
     }
 
     .card:last-child {
@@ -405,13 +398,32 @@ header {
     }
 
     .content-container {
-        padding: 15px;
+        padding: 10px;
     }
 
     .section-title {
-        font-size: 20px;
-        margin-bottom: 15px;
+        font-size: 18px;
+        margin-bottom: 10px;
     }
 
-    /* ... other mobile styles ... */
+    .scrollable-content {
+        margin-top: 60px;
+        /* Adjust based on your header height */
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+    .header-content {
+        padding: 5px 10px;
+    }
+
+    .header-left h1 {
+        font-size: 20px;
+    }
+
+    .header-right a {
+        font-size: 14px;
+    }
 }
