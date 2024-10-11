@@ -3,7 +3,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    background-color: rgb(252, 252, 253);
     /* Off-white color */
     color: #333333;
     /* Charcoal/dark grey color */
@@ -24,10 +24,13 @@ header {
 .header-left h1 {
     margin: 0;
     font-size: 24px;
+    color: rgb(252, 252, 253);
+    /* Off-white */
 }
 
 .header-left h1 a {
-    color: #333333;
+    color: rgb(252, 252, 253);
+    /* Off-white */
     text-decoration: none;
 }
 
@@ -38,6 +41,7 @@ header {
 .header-right {
     display: flex;
     align-items: center;
+    gap: 20px;
 }
 
 .header-right img {
@@ -57,7 +61,8 @@ header {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #ffffff;
+    background-color: rgb(222, 120, 159);
+    /* Pink, matching the banner */
     padding: 30px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     /* Reverted to grey shadow */
@@ -71,7 +76,8 @@ header {
     text-align: center;
     margin: 0 0 25px 0;
     font-size: 22px;
-    color: #333;
+    color: rgb(252, 252, 253);
+    /* Off-white */
     font-weight: 600;
     letter-spacing: -0.5px;
 }
@@ -86,10 +92,12 @@ header {
     width: 100%;
     padding: 12px 15px;
     font-size: 14px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid rgb(252, 252, 253);
+    /* Off-white border */
     border-radius: 6px;
     margin-bottom: 15px;
-    background-color: #f9f9f9;
+    background-color: rgb(252, 252, 253);
+    /* Off-white background */
     transition: all 0.3s ease;
 }
 
@@ -99,8 +107,9 @@ header {
 
 .center-form input[type="email"]:focus {
     outline: none;
-    border-color: #008080;
-    box-shadow: 0 0 0 2px rgba(0, 128, 128, 0.2);
+    border-color: rgb(121, 181, 191);
+    /* Light Blue */
+    box-shadow: 0 0 0 2px rgba(121, 181, 191, 0.2);
 }
 
 .center-form button {
@@ -109,8 +118,9 @@ header {
     font-size: 16px;
     font-weight: 500;
     border: none;
-    background-color: #008080;
-    color: #ffffff;
+    background-color: rgb(121, 181, 191);
+    color: rgb(252, 252, 253);
+    /* Off-white */
     cursor: pointer;
     border-radius: 6px;
     transition: all 0.3s ease;
@@ -118,7 +128,7 @@ header {
 }
 
 .center-form button:hover {
-    background-color: #006666;
+    background-color: rgb(101, 161, 171);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -131,6 +141,8 @@ header {
     margin-top: 10px;
     font-size: 14px;
     text-align: center;
+    color: rgb(252, 252, 253);
+    /* Off-white */
 }
 
 #gameCanvas {
@@ -147,11 +159,12 @@ header {
     position: fixed;
     width: 100%;
     top: 0;
-    background-color: #f0f0f0;
-    /* Slightly darker off-white for contrast */
+    background-color: rgb(222, 120, 159);
     z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid #e0e0e0;
+    box-shadow: none;
+    /* Remove the shadow */
+    border-bottom: none;
+    /* Remove the bottom border */
 }
 
 .header-content {
@@ -166,28 +179,33 @@ header {
 .header-left h1 {
     margin: 0;
     font-size: 24px;
-    color: #333333;
+    color: rgb(252, 252, 253);
+    /* Off-white */
 }
 
 .header-right {
     display: flex;
     align-items: center;
-}
-
-.linkedin-link {
-    text-decoration: none;
-    color: #333333;
-    font-size: 16px;
+    gap: 20px;
 }
 
 .header-right a {
     text-decoration: none;
-    color: #333333;
-    font-size: 16px;
+    color: rgb(252, 252, 253);
+    font-size: 18px;
+}
+
+.header-right .nav-link {
+    transition: none;
+}
+
+.header-right .linkedin-link {
+    transition: none;
 }
 
 .header-right a:hover {
-    text-decoration: underline;
+    opacity: 1;
+    color: rgb(252, 252, 253);
 }
 
 .about-link {
@@ -204,7 +222,8 @@ header {
 .newsletter-info {
     margin-top: 10px;
     font-size: 14px;
-    color: #666;
+    color: rgb(252, 252, 253);
+    /* Off-white */
     text-align: center;
     background-color: transparent;
     border: none;
@@ -225,12 +244,13 @@ header {
 }
 
 .scrollable-content {
-    background-color: #f0f0f0;
-    /* Slightly darker off-white for contrast */
+    background-color: rgb(222, 120, 159);
     position: relative;
     z-index: 1;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e0e0e0;
+    box-shadow: none;
+    /* Remove the shadow */
+    border: none;
+    /* Remove the border */
     width: 100%;
 }
 
@@ -246,7 +266,8 @@ header {
 
 .section-title {
     font-size: 24px;
-    color: #333;
+    color: rgb(252, 252, 253);
+    /* Off-white */
     margin: 0 0 20px 0;
     padding: 0;
     text-transform: lowercase;
@@ -277,7 +298,7 @@ header {
     padding: 20px;
     border-right: 1px solid #e0e0e0;
     margin: 10px;
-    background-color: #ffffff;
+    background-color: rgb(252, 252, 253);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     max-height: 500px;
@@ -328,7 +349,7 @@ header {
     display: inline-block;
     margin-right: 10px;
     padding: 5px 10px;
-    background-color: #f0f0f0;
+    background-color: rgb(232, 191, 208);
     color: #333;
     text-decoration: none;
     border-radius: 5px;
@@ -337,18 +358,18 @@ header {
 }
 
 .card .links a:hover {
-    background-color: #e0e0e0;
+    background-color: rgb(222, 181, 198);
 }
 
 .card .links .spotify-link {
-    background-color: #1DB954;
-    color: white;
+    background-color: rgb(178, 209, 146);
+    color: #333;
 }
 
 .card .links .post-link {
-    background-color: #008080;
-    /* Changed to teal to match the new color scheme */
-    color: white;
+    background-color: rgb(121, 181, 191);
+    color: rgb(252, 252, 253);
+    /* Off-white */
 }
 
 /* Mobile optimizations */
@@ -426,4 +447,138 @@ header {
     .header-right a {
         font-size: 14px;
     }
+}
+
+/* Remove the .nav-link class as it's no longer needed */
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-right {
+        margin-top: 10px;
+        flex-wrap: wrap;
+    }
+
+    .header-right a {
+        margin-right: 15px;
+        margin-bottom: 5px;
+    }
+}
+
+.deep-dives-container {
+    max-width: 1200px;
+    margin: 80px auto 40px;
+    padding: 0 20px;
+}
+
+.page-title {
+    color: rgb(252, 252, 253);
+    font-size: 36px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.article-card {
+    background-color: rgb(252, 252, 253);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+}
+
+.article-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.article-content {
+    padding: 20px;
+}
+
+.article-title {
+    color: rgb(222, 120, 159);
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.article-excerpt {
+    color: #333;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.article-meta {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.article-date {
+    margin-right: 10px;
+}
+
+.read-more-btn {
+    display: inline-block;
+    background-color: rgb(121, 181, 191);
+    color: rgb(252, 252, 253);
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.read-more-btn:hover {
+    background-color: rgb(101, 161, 171);
+}
+
+@media (max-width: 768px) {
+    .articles-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.article-container {
+    max-width: 800px;
+    margin: 80px auto;
+    padding: 0 20px;
+}
+
+.article-title {
+    color: rgb(222, 120, 159);
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.article-meta {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.article-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.article-content {
+    color: #333;
+    font-size: 18px;
+    line-height: 1.6;
 }

@@ -69,7 +69,7 @@ function drawGrid() {
 
             // Reduce the opacity range for a softer effect
             let opacity = cellValue * 0.55;
-            offscreenCtx.fillStyle = `rgba(0, 0, 0, ${opacity})`;
+            offscreenCtx.fillStyle = `rgba(121, 181, 191, ${opacity})`;
             offscreenCtx.fillRect(
                 x * cellSize,
                 y * cellSize,

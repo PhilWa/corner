@@ -94,6 +94,41 @@ def read_news_from_tsv():
     ]  # Return latest 3 items
 
 
+articles = [
+    {
+        "id": 1,
+        "title": "The Future of AI in Switzerland",
+        "excerpt": "Exploring the rapidly evolving AI landscape in Switzerland, including key players, research initiatives, and potential impacts on various industries.",
+        # "image_url": url_for("static", filename="images/ai_switzerland.jpg"),
+        "date": "May 15, 2023",
+        "author": "John Doe",
+    },
+    {
+        "id": 2,
+        "title": "Swiss Fintech Revolution",
+        "excerpt": "An in-depth look at how fintech startups are reshaping the Swiss financial sector, from blockchain applications to innovative payment solutions.",
+        # "image_url": url_for("static", filename="images/fintech_swiss.jpg"),
+        "date": "May 10, 2023",
+        "author": "Jane Smith",
+    },
+    # Add more articles as needed
+]
+
+
+@app.route("/article/<int:article_id>")
+def article(article_id):
+    # Fetch the article from the list of articles
+    article = next((a for a in articles if a["id"] == article_id), None)
+    if article is None:
+        abort(404)
+    return render_template("article.html", article=article)
+
+
+@app.route("/deep-dives")
+def deep_dives():
+    return render_template("deep_dives.html", articles=articles)
+
+
 if __name__ == "__main__":
     is_mac = platform.system() == "Darwin"
     is_production = os.environ.get("PRODUCTION", "false").lower() == "true"
