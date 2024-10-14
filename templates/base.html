@@ -13,13 +13,15 @@
 </head>
 
 <body>
-    <header class="banner">
+    <header class="banner" data-header-height="10">
         <div class="header-content">
             <div class="header-left">
                 <h1><a href="{{ url_for('index') }}">the corner</a></h1>
             </div>
             <div class="header-right">
+                <a href="#latest-stories" class="nav-link" id="latest-stories-link">latest stories</a>
                 <a href="{{ url_for('deep_dives') }}" class="nav-link">deep dives</a>
+                <a href="#game-of-life" class="nav-link" id="game-of-life-link">game of life</a>
                 <a href="https://www.linkedin.com/in/philippwarmer/" target="_blank" class="linkedin-link">contact</a>
             </div>
         </div>
@@ -32,6 +34,43 @@
             const canvas = document.getElementById('gameCanvas');
             if (canvas) {
                 initGameOfLife(canvas);
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const scrollToSection = function (sectionId, e) {
+                e.preventDefault();
+                const section = document.getElementById(sectionId);
+                const header = document.querySelector('.banner');
+                const headerHeight = parseInt(header.getAttribute('data-header-height')) || 0;
+
+                if (section) {
+                    const elementPosition = section.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                } else {
+                    window.location.href = "{{ url_for('index') }}#" + sectionId;
+                }
+            };
+
+            const latestStoriesLink = document.getElementById('latest-stories-link');
+            const gameOfLifeLink = document.getElementById('game-of-life-link');
+
+            if (latestStoriesLink) {
+                latestStoriesLink.addEventListener('click', function (e) {
+                    scrollToSection('latest-stories', e);
+                });
+            }
+
+            if (gameOfLifeLink) {
+                gameOfLifeLink.addEventListener('click', function (e) {
+                    scrollToSection('game-of-life', e);
+                });
             }
         });
     </script>

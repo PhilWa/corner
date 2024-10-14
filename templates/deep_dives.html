@@ -1,22 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="deep-dives-container">
-    <h1 class="page-title">Deep Dives</h1>
-    <div class="articles-grid">
-        {% for article in articles %}
-        <article class="article-card">
-            <div class="article-image" style="background-image: url('{{ article.image_url }}');"></div>
-            <div class="article-content">
-                <h2 class="article-title">{{ article.title }}</h2>
-                <p class="article-excerpt">{{ article.excerpt }}</p>
-                <div class="article-meta">
-                    <span class="article-date">{{ article.date }}</span>
-                    <span class="article-author">By {{ article.author }}</span>
+<div class="deep-dives-section">
+    <div class="deep-dives-container">
+        <h1 class="page-title">Deep Dives</h1>
+        <div class="articles-grid">
+            {% for article in articles %}
+            <article class="article-card">
+                <div class="article-image" style="background-image: url('{{ article.image_url }}');"></div>
+                <div class="article-content">
+                    <h2 class="article-title">{{ article.title }}</h2>
+                    <p class="article-excerpt">{{ article.excerpt }}</p>
+                    <div class="article-meta">
+                        <span class="article-date">{{ article.date }}</span>
+                        <span class="article-author">By {{ article.author }}</span>
+                    </div>
+                    <a href="{{ url_for('article', article_id=article.id) }}" class="read-more-btn">Read More</a>
                 </div>
-                <a href="{{ url_for('article', article_id=article.id) }}" class="read-more-btn">Read More</a>
-            </div>
-        </article>
-        {% endfor %}
+            </article>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}

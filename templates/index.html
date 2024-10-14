@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="initial-view">
+    <h1 class="main-title">Tech in Switzerland</h1>
     <div class="center-form">
-        <h2 class="newsletter-title">Tech Stories in Switzerland</h2>
+        <h2 class="newsletter-title">Sign up for weekly stories</h2>
         <form method="post" action="{{ url_for('index') }}">
-            <input type="email" name="email" placeholder="Your email for weekly updates" required>
+            <input type="email" name="email" placeholder="Your email address" required>
             <button type="submit">Sign Up</button>
         </form>
         {% if message %}
@@ -14,7 +15,7 @@
 </div>
 <div class="scrollable-content">
     <div class="content-container">
-        <div class="content-preview">
+        <div class="content-preview" id="latest-stories">
             <h2 class="section-title">latest stories</h2>
         </div>
         <div class="full-content">
@@ -39,7 +40,7 @@
             </div>
         </div>
     </div>
-    <div class="game-of-life-section">
+    <div class="game-of-life-section" id="game-of-life">
         <div class="section-header">
             <h2 class="section-title">Game of Life</h2>
             <span class="section-instruction">click below to add pixels</span>
