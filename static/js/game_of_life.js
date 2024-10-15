@@ -36,8 +36,6 @@ function initGameOfLife(canvas) {
     // Recalculate on window resize
     window.addEventListener('resize', () => {
         resizeCanvas();
-        grid = createGrid();
-        nextGrid = createGrid();
         drawGrid();
     });
 

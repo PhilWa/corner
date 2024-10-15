@@ -55,6 +55,11 @@
                     scrollToSection(sectionId, e);
                 });
             });
+
+            const canvas = document.getElementById('gameCanvas');
+            if (canvas) {
+                initGameOfLife(canvas);
+            }
         });
     </script>
 </body>
