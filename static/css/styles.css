@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
 
+:root {
+    --section-title-font-size: 24px;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -21,12 +25,24 @@ header {
     padding: 10px;
 }
 
-.header-left h1 {
-    margin: 0;
-    font-size: 24px;
-    /* Confirm this is the correct size for "the corner" */
+.header-left h1,
+.page-title,
+.section-title {
+    font-size: var(--section-title-font-size);
     color: rgb(252, 252, 253);
-    /* Off-white */
+    margin: 0 0 30px 0;
+    padding: 0;
+    text-transform: lowercase;
+    font-weight: normal;
+}
+
+.page-title {
+    margin-bottom: 30px;
+}
+
+/* Ensure the deep-dives-section doesn't override the font size */
+.deep-dives-section .page-title {
+    font-size: var(--section-title-font-size) !important;
 }
 
 .header-left h1 a {
@@ -236,11 +252,6 @@ header {
     padding: 0;
 }
 
-/* Debugging styles */
-.center-form * {
-    /* Add red border to all elements inside center-form */
-}
-
 .scrollable-content {
     background-color: rgb(222, 120, 159);
     position: relative;
@@ -261,9 +272,8 @@ header {
 }
 
 .section-title {
-    font-size: 24px;
+    font-size: var(--section-title-font-size);
     color: rgb(252, 252, 253);
-    /* Off-white color */
     margin: 0 0 30px 0;
     padding: 0;
     text-transform: lowercase;
@@ -478,15 +488,12 @@ header {
 
 .page-title {
     color: rgb(252, 252, 253);
-    font-size: 24px;
-    /* Exactly match the font size of the header */
+    font-size: var(--section-title-font-size);
     margin-bottom: 30px;
     text-align: left;
     padding: 0;
     text-transform: lowercase;
-    /* Make the text lowercase */
     font-weight: normal;
-    /* Match the font weight if needed */
 }
 
 .articles-grid {
@@ -613,7 +620,7 @@ header {
 
 .game-of-life-section .section-title {
     color: rgb(222, 120, 159);
-    font-size: 24px;
+    font-size: var(--section-title-font-size);
     margin: 0;
     text-transform: lowercase;
 }
@@ -722,8 +729,8 @@ section:has(.deep-dives-container)
 
 .deep-dives-section {
     background-color: rgb(121, 181, 191);
-    padding-top: 60px;
-    /* Adjust this value to account for the fixed header height */
+    padding-top: 80px;
+    /* Increase this value to account for the fixed header */
     min-height: 100vh;
 }
 
@@ -742,17 +749,16 @@ section:has(.deep-dives-container)
     padding: 0;
 }
 
-#latest-stories {
+#latest-stories,
+#game-of-life {
     padding-top: 80px;
-    /* Adjust this value as needed */
+    /* Same as .deep-dives-section */
     margin-top: -60px;
-    /* Should be negative of the header height */
-    padding-bottom: 60px;
-    /* Add space at the bottom */
+    /* Adjust if needed */
 }
 
 .section-title {
-    font-size: 24px;
+    font-size: var(--section-title-font-size);
     color: rgb(252, 252, 253);
     margin: 0 0 30px 0;
     /* Increase bottom margin */
@@ -792,11 +798,4 @@ section:has(.deep-dives-container)
 .header-right .nav-link,
 .header-right .linkedin-link {
     transition: none;
-}
-
-#game-of-life {
-    padding-top: 80px;
-    /* Adjust this value as needed */
-    margin-top: -60px;
-    /* Should be negative of the header height */
 }

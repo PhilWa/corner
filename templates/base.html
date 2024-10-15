@@ -31,19 +31,11 @@
     <script src="{{ url_for('static', filename='js/game_of_life.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const canvas = document.getElementById('gameCanvas');
-            if (canvas) {
-                initGameOfLife(canvas);
-            }
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
             const scrollToSection = function (sectionId, e) {
                 e.preventDefault();
                 const section = document.getElementById(sectionId);
                 const header = document.querySelector('.banner');
-                const headerHeight = parseInt(header.getAttribute('data-header-height')) || 0;
+                const headerHeight = header.offsetHeight; // Get the actual header height
 
                 if (section) {
                     const elementPosition = section.getBoundingClientRect().top;
@@ -53,25 +45,16 @@
                         top: offsetPosition,
                         behavior: "smooth"
                     });
-                } else {
-                    window.location.href = "{{ url_for('index') }}#" + sectionId;
                 }
             };
 
-            const latestStoriesLink = document.getElementById('latest-stories-link');
-            const gameOfLifeLink = document.getElementById('game-of-life-link');
-
-            if (latestStoriesLink) {
-                latestStoriesLink.addEventListener('click', function (e) {
-                    scrollToSection('latest-stories', e);
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    const sectionId = this.getAttribute('href').substring(1);
+                    scrollToSection(sectionId, e);
                 });
-            }
-
-            if (gameOfLifeLink) {
-                gameOfLifeLink.addEventListener('click', function (e) {
-                    scrollToSection('game-of-life', e);
-                });
-            }
+            });
         });
     </script>
 </body>
