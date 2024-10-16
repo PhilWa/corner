@@ -791,3 +791,15 @@ section:has(.deep-dives-container)
 .header-right .linkedin-link {
     transition: none;
 }
+
+.deep-dives-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 20px;
+    color: rgb(252, 252, 253);
+}
+
+.deep-dives-list li {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
