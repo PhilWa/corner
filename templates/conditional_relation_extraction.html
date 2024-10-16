@@ -39,13 +39,33 @@
         li {
             margin-bottom: 10px;
         }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: rgb(121, 181, 191);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: rgb(101, 161, 171);
+            text-decoration: none;
+        }
     </style>
 </head>
 
 <body>
+    <a href="{{ url_for('index') }}#deep-dives" class="back-button"
+        onclick="sessionStorage.setItem('scrollToDeepDives', 'true'); return true;">Back to Deep Dives</a>
+
     <h1>Conditional Relation Extraction: Revolutionizing Data Summarization</h1>
     <h2>Unlocking the Power of Contextual Relations in Text</h2>
-    <p><em>Written by Author Name</em></p>
+    <p><em>Written by Philipp Warmer</em></p>
 
     <p>One of the major challenges in Natural Language Processing (NLP) is the extraction of meaningful relationships
         between entities in a given document. Traditional methods, like Named Entity Recognition (NER), can pull

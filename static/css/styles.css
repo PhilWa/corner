@@ -803,3 +803,16 @@ section:has(.deep-dives-container)
     margin-bottom: 10px;
     font-size: 18px;
 }
+
+.deep-dives-list a {
+    color: rgb(252, 252, 253);
+    /* Off-white color */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.deep-dives-list a:hover {
+    color: rgb(252, 252, 253);
+    /* Keeping the existing hover color */
+    text-decoration: underline;
+}

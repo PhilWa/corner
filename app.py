@@ -120,13 +120,23 @@ def article(article_id):
     # Fetch the article from the list of articles
     article = next((a for a in articles if a["id"] == article_id), None)
     if article is None:
-        abort(404)
+        os.abort(404)
     return render_template("article.html", article=article)
 
 
 @app.route("/deep-dives")
 def deep_dives():
     return render_template("deep_dives.html", articles=articles)
+
+
+@app.route("/conditional-relation-extraction")
+def conditional_relation_extraction():
+    return render_template("conditional_relation_extraction.html")
+
+
+@app.route("/rag-architecture")
+def rag_architecture():
+    return render_template("rag_architecture.html")
 
 
 if __name__ == "__main__":
