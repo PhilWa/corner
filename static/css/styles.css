@@ -816,3 +816,47 @@ section:has(.deep-dives-container)
     /* Keeping the existing hover color */
     text-decoration: underline;
 }
+
+.deep-dives-container {
+    /* Add this if it doesn't exist already */
+    padding: 20px;
+}
+
+.page-title {
+    margin-bottom: 30px;
+    /* Increase this value to add more space */
+}
+
+.deep-dives-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-top: 200px;
+    /* Add this line to create space above the list */
+    margin-bottom: 20px;
+    color: rgb(252, 252, 253);
+}
+
+.deep-dives-list li {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.deep-dives-list a {
+    color: rgb(252, 252, 253);
+    /* Off-white color */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.deep-dives-list a:hover {
+    color: rgb(252, 252, 253);
+    /* Keeping the existing hover color */
+    text-decoration: underline;
+}
+
+.deep-dives-description {
+    color: rgb(252, 252, 253);
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: left;
+}
