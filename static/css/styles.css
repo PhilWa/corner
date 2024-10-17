@@ -87,6 +87,14 @@ header {
     transition: width 0.3s ease;
 }
 
+.header-left h1 a:hover,
+.header-right a:hover,
+.header-right a:active,
+.header-right a:focus {
+    color: var(--off-white);
+    /* Ensure text color remains off-white on hover */
+}
+
 .header-left h1 a:hover::after,
 .header-right a:hover::after,
 .header-right a:active::after,
@@ -111,6 +119,8 @@ header {
 .header-right a:visited {
     opacity: 1;
     text-decoration: none;
+    color: var(--off-white);
+    /* Ensure text color remains off-white in all states */
 }
 
 .header-right a:focus {
