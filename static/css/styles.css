@@ -71,12 +71,27 @@ header {
 .header-right a {
     color: var(--off-white);
     text-decoration: none;
-    transition: text-decoration 0.3s ease;
+    position: relative;
+    transition: none;
 }
 
-.header-left h1 a:hover,
-.header-right a:hover {
-    text-decoration: underline;
+.header-left h1 a::after,
+.header-right a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--off-white);
+    transition: width 0.3s ease;
+}
+
+.header-left h1 a:hover::after,
+.header-right a:hover::after,
+.header-right a:active::after,
+.header-right a:focus::after {
+    width: 100%;
 }
 
 .header-right {
@@ -94,7 +109,7 @@ header {
 .header-right a:active,
 .header-right a:focus,
 .header-right a:visited {
-    opacity: 0.8;
+    opacity: 1;
     text-decoration: none;
 }
 
@@ -242,15 +257,15 @@ header {
 }
 
 .deep-dives-list li {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     position: relative;
-    padding-left: 30px;
+    padding-left: 40px;
 }
 
 .deep-dives-list li::before {
     content: '•';
     color: var(--off-white);
-    font-size: 1.5em;
+    font-size: 2em;
     position: absolute;
     left: 0;
     top: 50%;
@@ -259,20 +274,46 @@ header {
 
 .deep-dives-list a {
     color: var(--off-white);
-    text-decoration: none;
-    font-size: var(--font-size-large);
-    transition: color 0.3s ease, transform 0.3s ease;
+    text-decoration: none !important;
+    font-size: calc(var(--font-size-large) * 1.2);
+    transition: none;
     display: inline-block;
+    padding: 10px 0;
+    position: relative;
+    border-bottom: none;
 }
 
-.deep-dives-list a:hover {
-    color: var(--light-pink);
-    transform: translateX(5px);
+.deep-dives-list a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 5px;
+    left: 0;
+    background-color: var(--off-white);
+    transition: width 0.3s ease;
+}
+
+.deep-dives-list a:hover::after {
+    width: 100%;
+}
+
+.deep-dives-list a:hover,
+.deep-dives-list a:focus,
+.deep-dives-list a:active {
+    color: var(--off-white);
+    text-decoration: none !important;
+    border-bottom: none;
+    outline: none;
 }
 
 @media (max-width: 768px) {
     .deep-dives-list li {
-        padding-left: 20px;
+        padding-left: 30px;
+    }
+
+    .deep-dives-list a {
+        font-size: var(--font-size-large);
     }
 }
 
