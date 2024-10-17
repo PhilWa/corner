@@ -139,6 +139,11 @@ def rag_architecture():
     return render_template("rag_architecture.html")
 
 
+@app.route("/watson")
+def watson():
+    return render_template("watson.html")
+
+
 if __name__ == "__main__":
     is_mac = platform.system() == "Darwin"
     is_production = os.environ.get("PRODUCTION", "false").lower() == "true"

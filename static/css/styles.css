@@ -337,6 +337,8 @@ header {
     display: flex;
     flex-direction: column;
     padding-top: 60px;
+    border: none;
+
 }
 
 .game-of-life-section .section-header {
@@ -348,6 +350,7 @@ header {
     margin: 0 auto 20px;
     width: 100%;
     box-sizing: border-box;
+    border: none;
 }
 
 .game-of-life-section .section-title {
@@ -367,7 +370,8 @@ header {
     width: 100%;
     height: 100%;
     background-color: transparent;
-    border: 1px solid #ddd;
+    border: 1px solid var(--pink);
+    /* Keep this border for the canvas itself */
 }
 
 /* Scroll Arrow */
