@@ -35,7 +35,7 @@
                 e.preventDefault();
                 const section = document.getElementById(sectionId);
                 const header = document.querySelector('.banner');
-                const headerHeight = header.offsetHeight; // Get the actual header height
+                const headerHeight = header.offsetHeight;
 
                 if (section) {
                     const elementPosition = section.getBoundingClientRect().top;
@@ -55,6 +55,26 @@
                     scrollToSection(sectionId, e);
                 });
             });
+
+            // Optional: Scroll arrow to scroll to the next section
+            const scrollArrow = document.querySelector('.scroll-arrow');
+            if (scrollArrow) {
+                scrollArrow.addEventListener('click', function () {
+                    const nextSection = document.getElementById('latest-stories');
+                    const header = document.querySelector('.banner');
+                    const headerHeight = header.offsetHeight;
+
+                    if (nextSection) {
+                        const elementPosition = nextSection.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            }
 
             const canvas = document.getElementById('gameCanvas');
             if (canvas) {

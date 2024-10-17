@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="initial-view">
+
+<!-- Section 1: Landing Page -->
+<div class="initial-view" id="home">
     <h1 class="main-title">Tech in Switzerland</h1>
     <div class="center-form">
         <h2 class="newsletter-title">Sign up for weekly stories</h2>
@@ -14,49 +16,52 @@
     </div>
     <div class="scroll-arrow">↓</div>
 </div>
-<div class="scrollable-content">
+
+<!-- Section 2: Latest Stories -->
+<div class="latest-stories-section" id="latest-stories">
     <div class="content-container">
-        <div class="content-preview" id="latest-stories">
-            <h2 class="section-title">latest stories</h2>
-        </div>
-        <div class="full-content">
-            <div class="card-container">
-                {% for item in news_items %}
-                <div class="card">
-                    <h3>{{ item.date }}</h3>
-                    <div class="links">
-                        {% if item.to_pod %}
-                        <a href="{{ item.to_pod }}" target="_blank" class="spotify-link">Listen on Spotify</a>
-                        {% endif %}
-                        {% if item.to_post %}
-                        <a href="{{ item.to_post }}" target="_blank" class="post-link">Read Full Post</a>
-                        {% endif %}
-                    </div>
-                    <pre class="content">{{ item.content }}</pre>
-                    {% if item.misc %}
-                    <p class="misc">{{ item.misc }}</p>
+        <h2 class="section-title">latest stories</h2>
+        <div class="card-container">
+            {% for item in news_items %}
+            <div class="card">
+                <h3>{{ item.date }}</h3>
+                <div class="links">
+                    {% if item.to_pod %}
+                    <a href="{{ item.to_pod }}" target="_blank" class="spotify-link">Listen on Spotify</a>
+                    {% endif %}
+                    {% if item.to_post %}
+                    <a href="{{ item.to_post }}" target="_blank" class="post-link">Read Full Post</a>
                     {% endif %}
                 </div>
-                {% endfor %}
+                <pre class="content">{{ item.content }}</pre>
+                {% if item.misc %}
+                <p class="misc">{{ item.misc }}</p>
+                {% endif %}
             </div>
+            {% endfor %}
         </div>
-    </div>
-    <div class="deep-dives-section" id="deep-dives">
-        <div class="deep-dives-container">
-            <h1 class="page-title">Deep Dives</h1>
-            <p class="deep-dives-description">Curated knowledge, jump in!</p>
-            <ul class="deep-dives-list">
-                <li><a href="{{ url_for('conditional_relation_extraction') }}">LLMs as Pivot Table for Text</a></li>
-                <li><a href="{{ url_for('rag_architecture') }}">Real World Learnings about RAG Architecture</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="game-of-life-section" id="game-of-life">
-        <div class="section-header">
-            <h2 class="section-title">Game of Life</h2>
-            <span class="section-instruction">click below to add pixels</span>
-        </div>
-        <canvas id="gameCanvas"></canvas>
     </div>
 </div>
+
+<!-- Section 3: Deep Dives -->
+<div class="deep-dives-section" id="deep-dives">
+    <div class="deep-dives-container">
+        <h2 class="section-title">Deep Dives</h2>
+        <p class="deep-dives-description">Curated knowledge, jump in!</p>
+        <ul class="deep-dives-list">
+            <li><a href="{{ url_for('conditional_relation_extraction') }}">LLMs as Pivot Table for Text</a></li>
+            <li><a href="{{ url_for('rag_architecture') }}">Real World Learnings about RAG Architecture</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Section 4: Game of Life -->
+<div class="game-of-life-section" id="game-of-life">
+    <div class="section-header">
+        <h2 class="section-title">Game of Life</h2>
+        <span class="section-instruction">click below to add pixels</span>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+</div>
+
 {% endblock %}
