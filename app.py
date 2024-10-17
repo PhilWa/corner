@@ -144,6 +144,11 @@ def watson():
     return render_template("watson.html")
 
 
+@app.route("/swift")
+def swift():
+    return render_template("swift.html")
+
+
 if __name__ == "__main__":
     is_mac = platform.system() == "Darwin"
     is_production = os.environ.get("PRODUCTION", "false").lower() == "true"
