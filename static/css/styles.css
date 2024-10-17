@@ -208,42 +208,72 @@ header {
     height: 100vh;
     background-color: var(--teal);
     padding-top: 60px;
+    display: flex;
+    flex-direction: column;
 }
 
 .deep-dives-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.deep-dives-section .section-title {
+    color: var(--off-white);
+    font-size: var(--section-title-font-size);
+    margin-bottom: 20px;
 }
 
 .deep-dives-description {
     color: var(--off-white);
-    font-size: 18px;
-    margin-bottom: 20px;
-    text-align: left;
+    font-size: var(--font-size-large);
+    margin-bottom: 90px;
+    margin-top: 30px;
 }
 
 .deep-dives-list {
-    list-style-type: disc;
-    padding-left: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    color: var(--off-white);
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
 .deep-dives-list li {
-    margin-bottom: 10px;
-    font-size: 18px;
+    margin-bottom: 20px;
+    position: relative;
+    padding-left: 30px;
+}
+
+.deep-dives-list li::before {
+    content: '•';
+    color: var(--off-white);
+    font-size: 1.5em;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .deep-dives-list a {
     color: var(--off-white);
     text-decoration: none;
-    transition: color 0.3s ease;
+    font-size: var(--font-size-large);
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
 }
 
 .deep-dives-list a:hover {
-    text-decoration: underline;
+    color: var(--light-pink);
+    transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+    .deep-dives-list li {
+        padding-left: 20px;
+    }
 }
 
 /* Game of Life Section (Section 4) */
