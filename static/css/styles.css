@@ -19,6 +19,8 @@
     --font-size-xxl: 5rem;
     --font-family-base: Arial, sans-serif;
     --border-radius: 5px;
+    --font-family-serif: 'Georgia', serif;
+    --font-family-sans-serif: 'Arial', sans-serif;
 }
 
 /* Body Styles */
@@ -27,7 +29,7 @@ body {
     padding: 0;
     background-color: var(--off-white);
     color: var(--dark-gray);
-    font-family: var(--font-family-base);
+    font-family: var(--font-family-serif);
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -65,6 +67,7 @@ header {
     padding: 0;
     text-transform: lowercase;
     font-weight: normal;
+    font-family: var(--font-family-sans-serif);
 }
 
 .header-left h1 a,
@@ -498,6 +501,7 @@ header {
     margin: 0;
     padding: 0;
     text-transform: lowercase;
+    font-family: var(--font-family-sans-serif);
 }
 
 /* Responsive Styles */
@@ -508,3 +512,102 @@ header {
 
 /* Additional Styles */
 /* ... your existing additional styles ... */
+
+/* Apply serif font to the body */
+body {
+    font-family: var(--font-family-serif);
+    /* ... other existing styles ... */
+}
+
+/* Keep sans-serif for headers and banner */
+header,
+.header-left h1,
+.header-right a,
+.section-title,
+.main-title {
+    font-family: var(--font-family-sans-serif);
+}
+
+/* Apply serif to specific sections */
+.center-form,
+.newsletter-title,
+.latest-stories-section .card-container,
+.deep-dives-description,
+.deep-dives-list a,
+.game-of-life-section .section-instruction {
+    font-family: var(--font-family-serif);
+}
+
+/* Keep sans-serif for section titles */
+.section-title {
+    font-family: var(--font-family-sans-serif);
+}
+
+.banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--pink);
+    z-index: 1000;
+    height: var(--header-height);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header-left h1 {
+    margin: 0;
+    font-size: 24px;
+    /* Adjust as needed */
+}
+
+.header-left h1 a {
+    color: var(--off-white);
+    text-decoration: none;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    /* Adjust the space between nav items */
+}
+
+.header-right a {
+    color: var(--off-white);
+    text-decoration: none;
+    font-size: 18px;
+    /* Adjust as needed */
+    transition: opacity 0.3s ease;
+}
+
+.header-right a:hover {
+    opacity: 0.8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 20px;
+    }
+
+    .header-right {
+        margin-top: 10px;
+        flex-wrap: wrap;
+    }
+
+    .header-right a {
+        font-size: 16px;
+        /* Smaller font size for mobile */
+    }
+}
