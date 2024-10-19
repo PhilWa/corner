@@ -28,18 +28,9 @@
             {% for item in news_items %}
             <div class="card">
                 <h3>{{ item.date }}</h3>
-                <div class="links">
-                    {% if item.to_pod %}
-                    <a href="{{ item.to_pod }}" target="_blank" class="spotify-link">Listen on Spotify</a>
-                    {% endif %}
-                    {% if item.to_post %}
-                    <a href="{{ item.to_post }}" target="_blank" class="post-link">Read Full Post</a>
-                    {% endif %}
+                <div class="card-content">
+                    {{ item.content | safe }}
                 </div>
-                <pre class="content">{{ item.content }}</pre>
-                {% if item.misc %}
-                <p class="misc">{{ item.misc }}</p>
-                {% endif %}
             </div>
             {% endfor %}
         </div>

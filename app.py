@@ -51,7 +51,7 @@ def index():
             except sqlite3.IntegrityError:
                 message = "This email is already registered."
 
-    news_items = read_news_from_tsv()
+    news_items = get_latest_news()
     return render_template("index.html", message=message, news_items=news_items)
 
 
@@ -77,21 +77,29 @@ def get_cells_to_toggle(x, y):
     return toggle_positions
 
 
-def read_news_from_tsv():
-    News = namedtuple("News", ["id", "date", "content", "misc", "to_pod", "to_post"])
+def get_latest_news():
+    news_dir = os.path.join(app.root_path, "templates", "news")
+    # Get all .html files in the news directory
+    html_files = [f for f in os.listdir(news_dir) if f.endswith(".html")]
+
+    # Sort files by modification time, newest first
+    html_files.sort(
+        key=lambda x: os.path.getmtime(os.path.join(news_dir, x)), reverse=True
+    )
+
+    # Get the three latest files
+    latest_files = html_files[:3]
+
     news_items = []
-    with open("news.tsv", "r", encoding="utf-8") as tsv_file:
-        reader = csv.reader(tsv_file, delimiter="|")
-        next(reader)  # Skip header row
-        for row in reader:
-            # Unescape newlines in content
-            row[2] = row[2].replace("\\n", "\n")
-            # Ensure we have all fields, use empty strings if missing
-            row += [""] * (6 - len(row))
-            news_items.append(News(*row[:6]))  # Only use the first 6 fields
-    return sorted(news_items, key=lambda x: x.date, reverse=True)[
-        :3
-    ]  # Return latest 3 items
+    for filename in latest_files:
+        file_path = os.path.join(news_dir, filename)
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        # Get the last modified time as the date
+        mod_time = os.path.getmtime(file_path)
+        date_str = datetime.fromtimestamp(mod_time).strftime("%B %d, %Y")
+        news_items.append({"date": date_str, "content": content})
+    return news_items
 
 
 articles = [
