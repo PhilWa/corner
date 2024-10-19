@@ -651,3 +651,19 @@ header,
         /* Smaller font size for mobile */
     }
 }
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.card-header h3 {
+    margin: 0;
+}
+
+.podcast-icon {
+    color: var(--teal);
+    font-size: 1.8em;
+}

@@ -79,15 +79,10 @@ def get_cells_to_toggle(x, y):
 
 def get_latest_news():
     news_dir = os.path.join(app.root_path, "templates", "news")
-    # Get all .html files in the news directory
     html_files = [f for f in os.listdir(news_dir) if f.endswith(".html")]
-
-    # Sort files by modification time, newest first
     html_files.sort(
         key=lambda x: os.path.getmtime(os.path.join(news_dir, x)), reverse=True
     )
-
-    # Get the three latest files
     latest_files = html_files[:3]
 
     news_items = []
@@ -95,46 +90,16 @@ def get_latest_news():
         file_path = os.path.join(news_dir, filename)
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
-        # Get the last modified time as the date
         mod_time = os.path.getmtime(file_path)
-        date_str = datetime.fromtimestamp(mod_time).strftime("%B %d, %Y")
-        news_items.append({"date": date_str, "content": content})
+        upload_date = datetime.fromtimestamp(mod_time).strftime("%B %d, %Y")
+
+        # Check if the file is a podcast (you might want to implement your own logic here)
+        is_podcast = True
+
+        news_items.append(
+            {"upload_date": upload_date, "content": content, "is_podcast": is_podcast}
+        )
     return news_items
-
-
-articles = [
-    {
-        "id": 1,
-        "title": "The Future of AI in Switzerland",
-        "excerpt": "Exploring the rapidly evolving AI landscape in Switzerland, including key players, research initiatives, and potential impacts on various industries.",
-        # "image_url": url_for("static", filename="images/ai_switzerland.jpg"),
-        "date": "May 15, 2023",
-        "author": "John Doe",
-    },
-    {
-        "id": 2,
-        "title": "Swiss Fintech Revolution",
-        "excerpt": "An in-depth look at how fintech startups are reshaping the Swiss financial sector, from blockchain applications to innovative payment solutions.",
-        # "image_url": url_for("static", filename="images/fintech_swiss.jpg"),
-        "date": "May 10, 2023",
-        "author": "Jane Smith",
-    },
-    # Add more articles as needed
-]
-
-
-@app.route("/article/<int:article_id>")
-def article(article_id):
-    # Fetch the article from the list of articles
-    article = next((a for a in articles if a["id"] == article_id), None)
-    if article is None:
-        os.abort(404)
-    return render_template("article.html", article=article)
-
-
-@app.route("/deep-dives")
-def deep_dives():
-    return render_template("deep_dives.html", articles=articles)
 
 
 @app.route("/conditional-relation-extraction")

@@ -24,11 +24,15 @@
 <div class="latest-stories-section" id="latest-stories">
     <div class="content-container">
         <h2 class="section-title">latest stories</h2>
-        <p class="latest-stories-description">Check out the latest stories below.</p>
         <div class="card-container">
             {% for item in news_items %}
             <div class="card">
-                <h3>{{ item.date }}</h3>
+                <div class="card-header">
+                    <h3>{{ item.upload_date }}</h3>
+                    {% if item.is_podcast %}
+                    <i class="fas fa-podcast podcast-icon"></i>
+                    {% endif %}
+                </div>
                 <div class="card-content">
                     {{ item.content | safe }}
                 </div>
