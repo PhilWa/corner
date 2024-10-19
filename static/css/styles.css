@@ -285,36 +285,47 @@ header {
 }
 
 .deep-dives-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+    list-style-type: disc;
+    /* Adds back the bullet points */
+    padding-left: 20px;
+    /* Adds some padding to align bullets properly */
 }
 
 .deep-dives-list li {
     margin-bottom: 10px;
-    position: relative;
-    padding-left: 40px;
-}
-
-.deep-dives-list li::before {
-    content: '•';
-    color: var(--off-white);
-    font-size: 2em;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
+    /* Adjust as needed */
 }
 
 .deep-dives-list a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
     color: var(--off-white);
-    text-decoration: none !important;
-    font-size: var(--font-size-large);
-    transition: none;
-    display: inline-block;
-    padding: 1px 0;
-    position: relative;
-    border-bottom: none;
+    /* Makes the text off-white */
+    width: 100%;
+    max-width: 500px;
+    /* Adjust this value to set the desired absolute length */
+}
+
+.deep-dive-title {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text-icon {
+    margin-left: 10px;
+    /* Adds some space between the text and the icon */
+    flex-shrink: 0;
+    /* Prevents the icon from shrinking */
+    color: var(--off-white);
+    /* Makes the icon off-white to match the text */
+}
+
+/* If you need to adjust the bullet color */
+.deep-dives-list li::marker {
+    color: var(--off-white);
 }
 
 .deep-dives-list a::after {
@@ -667,4 +678,71 @@ header,
 .podcast-icon {
     color: var(--teal);
     font-size: 1.8em;
+}
+
+.deep-dives-list a {
+    position: relative;
+    padding-right: 1.5em;
+    /* Add some space for the icon */
+}
+
+.deep-dives-list .text-icon {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: inherit;
+    /* Use the same color as the text */
+    font-size: 0.9em;
+    /* Slightly smaller than the text */
+}
+
+.deep-dives-description,
+.deep-dives-list {
+    font-family: var(--font-family-serif);
+    color: var(--off-white);
+    font-size: 1.6rem;
+    /* Adjust this value if your description uses a different size */
+    line-height: 1.6;
+}
+
+.deep-dives-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-top: 20px;
+    /* Add some space between description and list */
+}
+
+.deep-dives-list li {
+    margin-bottom: 15px;
+    /* Increased for better readability */
+}
+
+.deep-dives-list a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    max-width: 520px;
+    /* Increased to accommodate larger font */
+}
+
+.deep-dive-title {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text-icon {
+    margin-left: 10px;
+    flex-shrink: 0;
+    font-size: 0.9em;
+    /* Slightly smaller than the text */
+}
+
+/* If you need to adjust the bullet color */
+.deep-dives-list li::marker {
+    color: var(--off-white);
 }
