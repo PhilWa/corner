@@ -390,6 +390,7 @@ header {
     font-size: var(--section-title-font-size);
     margin: 0;
     text-transform: lowercase;
+    border: none;
 }
 
 .game-of-life-section .section-instruction {
@@ -402,8 +403,7 @@ header {
     width: 100%;
     height: 100%;
     background-color: transparent;
-    border: 1px solid var(--pink);
-    /* Keep this border for the canvas itself */
+    border: none;
 }
 
 /* Scroll Arrow */
