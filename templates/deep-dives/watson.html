@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Little Things Around LLM Applications</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/monokai-sublime.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul,
+        ol {
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: rgb(121, 181, 191);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: rgb(101, 161, 171);
+            text-decoration: none;
+        }
+
+        pre code {
+            border-radius: 8px;
+            padding: 1em;
+            font-size: 14px;
+            line-height: 1.5;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom scrollbar for code blocks */
+        pre code::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        pre code::-webkit-scrollbar-thumb {
+            background-color: #666;
+            border-radius: 4px;
+        }
+
+        pre code::-webkit-scrollbar-track {
+            background-color: #333;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="{{ url_for('index') }}#deep-dives" class="back-button"
+        onclick="sessionStorage.setItem('scrollToDeepDives', 'true'); return true;">Back to Deep Dives</a>
+
+    <h1>Introducing John to Dr Watson</h1>
+    <h2>Unsupervised Name Matching</h2>
+    <p><em>Written by Philipp Warmer</em></p>
+
+    <p>In everyday life individuals are referred to by a variety of names. The used name largely depends on the context
+        of the calling. A 'Dr. John H. Watson' might be referred to as 'John' in an intimate way - or by 'Dr. Watson' in
+        a professional setting. Despite both name variants having nothing in common, they both refer to the same person.
+        This is quite obvious to a human, however making this connection is challenging to the computer due to the lack
+        of the given context.</p>
+
+    <p>Here we showcase an unsupervised workflow based on <a href="https://dirty-cat.github.io/">dirty-cat</a>, <a
+            href="https://spacy.io/">spaCy</a> and <a href="https://scikit-learn.org/stable/">scikit-learn</a> to
+        determine the underlying name-groups of different name variants, or to say it in layman's terms, to explain the
+        computer that both 'John' and 'Dr. Watson' both refer to the name-group 'Dr. John H. Watson'. This is done in 4
+        steps:</p>
+    <ol>
+        <li>Extracting the names from the text</li>
+        <li>Based on the name similarities determine the number of name clusters</li>
+        <li>Using the number of clusters to determine meaningful name-groups</li>
+        <li>Assign each name to a name-group</li>
+    </ol>
+
+    <h2>Setting up the environment</h2>
+
+    <p>Before we get started let's make sure we have all required libraries and the respective spaCy language model
+        installed.</p>
+
+    <table>
+        <tr>
+            <th>Package</th>
+            <th>Version</th>
+        </tr>
+        <tr>
+            <td>dirty-cat</td>
+            <td>0.2.0</td>
+        </tr>
+        <tr>
+            <td>en-core-web-sm</td>
+            <td>3.2.0</td>
+        </tr>
+        <tr>
+            <td>matplotlib</td>
+            <td>3.5.1</td>
+        </tr>
+        <tr>
+            <td>numpy</td>
+            <td>1.22.3</td>
+        </tr>
+        <tr>
+            <td>pandas</td>
+            <td>1.4.2</td>
+        </tr>
+        <tr>
+            <td>scikit-learn</td>
+            <td>1.0.2</td>
+        </tr>
+        <tr>
+            <td>seaborn</td>
+            <td>0.11.2</td>
+        </tr>
+        <tr>
+            <td>spacy</td>
+            <td>3.2.4</td>
+        </tr>
+    </table>
+
+    <p>After installing spaCy the language model can be downloaded like this:</p>
+
+    <pre><code>> python -m spacy download en_core_web_sm
+</code></pre>
+
+    <h2>Let’s load the required packages</h2>
+
+    <p>Now that all the libraries are installed, let us import them. I ran all of the following code in Python 3.9.11.
+    </p>
+
+    <pre><code>import numpy as np
+import spacy
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.cluster import AffinityPropagation
+from dirty_cat import SimilarityEncoder, GapEncoder
+</code></pre>
+
+    <p>If you can import all of the libraries without an error you are ready to go. Let's start!</p>
+
+    <h2>Detecting and extracting names from text</h2>
+
+    <p>First we want to get a list of names. This can be done using the code snippet below. Here, based on an input
+        string, we extract a list of names. This step is added to make the workflow comprehensive. However, we continue
+        with a predefined list of names in the next step.</p>
+
+    <pre><code>def get_names(text:str)-> list[str]:
+    """
+    Returns a unique, sorted list of named entities from a string of text. 
+    
+    Parameters
+    ----------
+    text : string
+    
+    Returns
+    -------
+    out : sorted list of unique names extracted from text
+    """
+    nlp = spacy.load("en_core_web_sm")
+    doc = nlp(text)
+    names = [ent.text for ent in doc.ents if ent.label_ == 'PERSON']
+    names.sort()
+    return list(set(names))
+</code></pre>
+
+    <pre><code>> names = get_names(some_book)
+</code></pre>
+
+    <h2>Determine the similarity of names</h2>
+
+    <p>To learn onto how many individuals we want to map our names, we first need to determine the putative number of
+        people to whom the names belong. For illustration purposes I’ve chosen two people, ‘Dr. John H. Watson’ and
+        ‘Sherlock Holmes’. For each of the two individuals I’ve selected multiple name variants, including only their
+        first and last name, with and without title or with a typo. Using this example list as input we compute the
+        n-gram similarity using the <code>get_encodings</code> function. Under the hood it used the similarity encoder
+        from the dirty cat library. With the function <code>get_clusters</code> the similarities are subject to affinity
+        propagation. This results in an automated cluster assignment for each name and thus also the total number of
+        clusters.</p>
+
+    <pre><code>names = ['Watson', 'John', 'John H. Watson', 'Sherlock Holmes', 'olmes', 'Sherlock', 'Holmes', 'Dr. Watson']
+</code></pre>
+
+    <pre><code>def get_encodings(names:list[str])->np.array:
+    """
+    Returns n-gram similarities from list of names. 
+    
+    Parameters
+    ----------
+    names : list of strings
+    
+    Returns:
+    --------
+    transformed_values : array
+                      An array of n-gram similarities
+    """
+    sorted_values = np.unique(np.array(names))
+    similarity_encoder = SimilarityEncoder(similarity='ngram')
+    transformed_values = similarity_encoder.fit_transform(
+        sorted_values.reshape(-1, 1))
+    return transformed_values
+</code></pre>
+
+    <pre><code>def get_clusters(encodings, random_state:int = 0)->(np.array, int):
+    """
+    Returns the cluster identity for the input encodings and the total number of clusters.
+
+    Parameters
+    ----------
+    encodings : array
+             output from get_encodings
+
+    random_state : int, default: 0
+                seed for random number
+
+    Returns:
+    --------
+    clusters : array
+           Cluster identity for each encoding
+
+    n_clusters : int
+             Number of identified clusters
+
+    """
+    clustering = AffinityPropagation(random_state=random_state).fit(encodings)
+    clusters = clustering.labels_
+    n_clusters = len(set(clusters))
+    return (clusters, n_clusters)
+</code></pre>
+
+    <pre><code>> encodings = get_encodings(names)
+> clusters, n_clusters = get_clusters(encodings)
+</code></pre>
+
+    <p>Let's see if we could retrieve the two expected name clusters for Dr. John H. Watson and Sherlock Holmes.</p>
+
+    <pre><code>> print(n_clusters)
+>> 2
+</code></pre>
+
+    <p>Hurray! We got the right number of name clusters. Let’s next figure out the underlying name constituents.</p>
+
+    <h2>Let's determine the name-groups</h2>
+
+    <p>Now that we have automatically determined the number of name clusters we next use the function
+        <code>get_name_groups</code> to determine the underlying name constituents as well as the activations for each
+        name-group. Why do we want the activations? In short, an activation can be understood as how strongly a given
+        name responds to a name-group, thereby giving us a measure of relatedness.
+    </p>
+
+    <pre><code>def get_name_groups(names:list[str], n_labels:int, n_name_parts:int=2, random_state:int=0)-> (list[str], np.array):
+    """
+    Returns the name-groups and activations.
+    
+    Parameters
+    ----------
+    names : list of strings
+          
+    
+    n_labels : int
+            Number of wanted name-groups, output of get_clusters can be used
+    
+    n_name_parts : int default 2
+                Number of wanted name-group parts, 2 as default as people typically have a first and a last name
+                
+    random_state : int default 0
+                Seed for random numbers
+
+    Returns:
+    --------
+    name_groups : list of strings
+               name-groups consisting of n_name_parts
+    
+    name_activations : array
+                    Activations for each name
+           
+    """
+                    
+    enc = GapEncoder(n_components=n_labels, random_state=42)
+    name_activations = enc.fit_transform(np.array(names).reshape(-1,1))
+    name_groups = enc.get_feature_names_out(n_labels=n_name_parts)
+    return (name_groups, name_activations)
+</code></pre>
+
+    <pre><code>> name_groups, name_activations = get_name_groups(names, n_clusters)
+</code></pre>
+
+    <p>So let's check if the name-groups make sense to us.</p>
+
+    <pre><code>> print(name_groups)
+>> ['sherlock, holmes', 'watson, john']
+</code></pre>
+
+    <p>That looks promising. We determined two name-groups: 'sherlock, holmes', 'watson, john'. Let's now connect them
+        to our list of names.</p>
+
+    <h2>Let’s map each name to a name-group</h2>
+
+    <p>Now we can map the name-group activation to each name. The figure below, generated with
+        <code>plot_topic_activations</code>, shows the activation value for each name / name-group pair. Do we see
+        activations that make sense to us?
+    </p>
+
+    <pre><code>def plot_topic_activations(name_activations:np.array, name_groups:list[str], names:list[str])-> sns.heatmap:
+    """
+    Visualize mapping of name-groups to names
+    
+    Parameters
+    ----------
+    name_activations : array
+                    Array of name activations from get_name_groups
+          
+    
+    name_groups : list of strings
+               List of name-groups from get_name_groups
+    
+    names : list of strings
+                Number of wanted name-group parts, 2 as default as people typically have a first and a last name
+
+    Returns
+    --------
+    out : sns.heatmap
+       Heatmap showing the activations for each name, name group pair
+           
+    """
+    data = pd.DataFrame(name_activations, columns=name_groups, index=names)
+    sns.heatmap(data)
+    plt.title('Activations for each name / name-group pair')
+    plt.xlabel('Name-groups')
+    plt.ylabel('Extracted names')
+    plt.show()
+</code></pre>
+
+    <pre><code>> plot_topic_activations(name_activations, name_groups, names)
+</code></pre>
+
+    <img src="/static/images/activation_heatmap.png" alt="Heatmap of activations"
+        style="max-width: 100%; height: auto; margin-bottom: 20px;">
+
+    <p>It looks like each of the extracted names has a clear name-group associated with it. All the ‘Holmes’ variants
+        map to the ‘sherlock, holmes’ name-group and the ‘Watson’ variants to the ‘watson, john’ name-group. We are not
+        done yet, let us programmatically connect them!</p>
+
+    <p>Therefore we use the <code>get_clean_names</code> function to select the largest activation value for each name.
+        This way we select the most associated name-group for every name. Let's check if we can connect John and Dr.
+        Watson to the same name-group.</p>
+
+    <pre><code>def get_clean_names(name_activations:np.array, name_groups:list[str], names:list[str])-> pd.DataFrame:
+    """
+    Returns mapping of name-groups to names
+    
+    Parameters
+    ----------
+    name_activations : array
+                    Array of name activations from get_name_groups
+          
+    
+    name_groups : list of strings
+               List of name-groups from get_name_groups
+    
+    names : list of strings
+                Number of wanted name-group parts, 2 as default as people typically have a first and a last name
+
+    Returns
+    --------
+    out : pd.DataFrame
+       Dataframe contains mapping of name-groups to names
+           
+    """
+    return (pd.DataFrame(name_activations, columns=name_groups, index=names)
+               .idxmax(axis=1)
+               .reset_index()
+               .rename({'index':'extracted_names', 0:'name_group'}, axis=1)
+            )
+</code></pre>
+
+    <pre><code>> matched_names = get_clean_names(name_activations, name_groups, names)
+</code></pre>
+
+    <pre><code>extracted_names      name_group
+0    Watson            watson, john
+1    John              watson, john
+2    John H. Watson    watson, john
+3    Sherlock Holmes   sherlock, holmes
+4    olmes             sherlock, holmes
+5    Sherlock          sherlock, holmes
+6    Holmes            sherlock, holmes
+7    Dr. Watson        watson, john
+</code></pre>
+
+    <p>That looks like a good mapping to me :-) We were able to successfully map all the ‘Holmes’ and ‘Watson’ variants
+        to their respective name-group and thus brought John back to Dr. John H. Watson. ✅</p>
+
+    <h2>Voila, let's wrap it up.</h2>
+
+    <p>In this automated workflow we started out by highlighting how names can be extracted using named entity
+        recognition. Next we selected a set of names, computed their n-gram similarity, from which we determined the
+        number of meaningful name clusters. Afterwards we pulled out their underlying name-groups and mapped them back
+        to the initial names using topic activations. This way we performed an unsupervised mapping of both 'John' and
+        'Dr. Watson' to the same underlying name-group: ‘watson, john’. In other words, we mapped ambiguous names to
+        unambiguous name-groups.</p>
+
+    <p>This workflow runs smoothly for our test cases but arguably the real world of natural language processing is more
+        messy. If this workflow doesn’t function well for your use case, here are a couple of screws that can be
+        adjusted to make this pipeline more robust. Setting the obvious preprocessing of names aside, the main ones are:
+    </p>
+    <ol>
+        <li>
+            <strong>Determining name clusters</strong>: One way to improve the unsupervised determination of name
+            clusters is to make it work by consensus of multiple orthogonal approaches. The similarity encoding approach
+            from dirty-cat could be supplemented with the word2vec algorithm (<a
+                href="https://arxiv.org/abs/1301.3781">https://arxiv.org/abs/1301.3781</a>) or the transformer-based
+            universal sentence encoder (<a
+                href="https://arxiv.org/abs/1803.11175">https://arxiv.org/abs/1803.11175</a>). Then the number of name
+            clusters is determined by majority vote, which is inherently more robust.
+        </li>
+        <li>
+            <strong>Generation of name-groups</strong>: While content, such as name-groups, can be generated by
+            reconstructing a latent space using convolutional variational autoencoders or generative adversarial
+            networks, any of those would require massive pre-training to be useful for our workflow. A more lightweight
+            way would be by bundling potentially ambiguous name-groups together and use them as the input to the whole
+            workflow, basically run it recursively either for a predefined number of iterations or till the activations
+            converge.
+        </li>
+    </ol>
+
+    <p>I hope you took something away from my assembly of spaCy, dirty_cat and sklearn. If you have any questions or
+        input please feel free to get in touch.</p>
+
+</body>
+
+</html>

@@ -276,11 +276,12 @@ header {
     margin-bottom: 20px;
 }
 
+.latest-stories-description,
 .deep-dives-description {
     color: var(--off-white);
     font-size: var(--font-size-large);
     margin-bottom: 50px;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .deep-dives-list {

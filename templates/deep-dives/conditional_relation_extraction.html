@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditional Relation Extraction via LLMs</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/monokai-sublime.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul,
+        ol {
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: rgb(121, 181, 191);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: rgb(101, 161, 171);
+            text-decoration: none;
+        }
+
+        pre code {
+            border-radius: 8px;
+            padding: 1em;
+            font-size: 14px;
+            line-height: 1.5;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom scrollbar for code blocks */
+        pre code::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        pre code::-webkit-scrollbar-thumb {
+            background-color: #666;
+            border-radius: 4px;
+        }
+
+        pre code::-webkit-scrollbar-track {
+            background-color: #333;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="{{ url_for('index') }}#deep-dives" class="back-button"
+        onclick="sessionStorage.setItem('scrollToDeepDives', 'true'); return true;">Back to Deep Dives</a>
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Conditional Relation Extraction via LLMs</title>
+    </head>
+
+    <body>
+
+        <h1>Conditional Relation Extraction via LLMs</h1>
+
+        <p>Named Entity Recognition (NER) is a fundamental NLP task that involves extracting specific entities such as
+            organizations, people, dates, and more, from unstructured text. While this process is effective in detecting
+            sets of entity groups, it often strips away the broader context and relation between the extracted entities.
+            However, advancements in Large Language Models (LLMs) offer a solution to this limitation.</p>
+
+        <h2>The Smarter Pivot: LLMs Preserving Context and Relation</h2>
+
+        <p>LLMs, with their advanced text understanding capabilities, can make the extraction process more intelligent
+            by mapping entities to a predefined schema. This way they can maintain the intricate word relation and
+            context, transforming how we approach NER. Here’s a breakdown of this process:</p>
+
+        <h3>Defining the Conditional Relation</h3>
+
+        <p>We start by establishing the specific conditional relation we want to explore. This is a shift from
+            traditional NER methods that indiscriminately extract all entities of a certain type. For example, if we’re
+            interested in how a drug affects a receptor in the context of a disease, we would define the relation as
+            follows:</p>
+
+        <blockquote>
+            A affects B in condition C ⇒ Relation(A-&gt;B | C)
+        </blockquote>
+
+        <h3>Creating Few-Shot Examples</h3>
+
+        <p>Once the conditional relation is set, we generate a few examples to guide the LLM. This step helps the model
+            understand the specific structure of the information we’re seeking.</p>
+
+        <blockquote>
+            Drug affects Receptor in Disease ⇒ Relation(Drug-&gt;Receptor | Disease)
+        </blockquote>
+
+        <blockquote>
+            .. now here is the place to get very specific with expected relations
+        </blockquote>
+
+        <h3>Operate an LLM for Structured Extraction</h3>
+
+        <p>There are several approaches to using LLMs for structured information extraction:</p>
+
+        <ul>
+            <li>
+                <strong>Prompt Engineering:</strong> Here, we clearly define the desired output structure in the prompt.
+                While straightforward, this method can be costly due to increased token usage.
+            </li>
+            <li>
+                <strong>Pretrained Model:</strong> Utilize a pretrained model like GPT-4's functions capability, which
+                is adept at generating structured outputs.
+            </li>
+            <li>
+                <strong>Fine-Tuning:</strong> This more labor-intensive approach involves customizing an LLM for our
+                specific needs. It offers the highest specificity and can even incorporate the examples from step 2,
+                reducing overall extraction costs.
+            </li>
+        </ul>
+
+        <h2>Bringing It All Together: Moving from Theory to Application</h2>
+
+        <p>To better understand how these components integrate, let’s first visualize the approach in a simple schema
+            and let’s apply it using the OpenAI API with GPT-4.</p>
+
+        <img src="/static/images/cre_workflow.png" alt="Conditional Relation Extraction Workflow"
+            style="max-width: 100%; height: auto; margin-bottom: 20px;">
+
+        <p><strong>Figure 1:</strong> We feed into the LLM prompt: (1) the expected conditional relation, (2) the
+            few-shot examples and the text containing the unstructured relation (3).</p>
+
+        <p>Let's get specific and have a look at a code snippet that can be used to extract relations using GPT-4 and
+            functions.</p>
+
+        <pre><code class="language-python">import os
+from dotenv import load_dotenv
+import json
+import openai
+        
+# Let's load in the openai api key
+load_dotenv()
+openai.api_key = os.environ["OPENAI_API_KEY"]
+        
+# In this function we define the relation and extract it using GPT-4
+def extract_relation(prompt: str):
+    """
+    Function for conditional relation extraction using OpenAI API
+        
+    Args:
+        prompt (str): Text containing the relation
+        systemsmessage (str): Message to guide the extraction process or provide context.
+        
+    Returns:
+        str: The extracted relation as a response message, formatted in the context of 
+             Relation(A-&gt;B | C).
+    """
+    # Basic setup: Here we define systemsmessage and prompt of interest
+    messages = [{"role": "user", "content": prompt}]
+        
+    # This is where the magic happens, here we describe the relation we want to extract and give examples
+    functions = [{
+        "name": "conditional_relation_extraction",
+        "description": """
+        Extract from scientific literature the following conditional relation: A affects B in the condition C ⇒ Relation(A-&gt;B | C)
+        
+        Examples:
+        Drug affects receptor in cancer
+        Chemotherapy affects DNA replication in tumor cells.
+        Trastuzumab attaches to HER2/neu in breast cancer.
+        Adalimumab targets TNF-alpha in rheumatoid arthritis.
+        """,
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "a": {
+                    "type": "string",
+                    "description": " in Relation(A-&gt;B | C) return A - often a drug, effector or tool.",
+                },
+                "b": {
+                    "type": "string",
+                    "description": " in Relation(A-&gt;B | C) return B - often a drug target, protein or subject.",
+                },
+                "c": {
+                    "type": "string",
+                    "description": " in Relation(A-&gt;B | C) return C - often a disease or condition.",
+                },
+            }
+        },
+        "required": ["a", "b", "c"],
+    }]
+        
+    # We plug in the messages and function in the OpenAI API
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=messages,
+        functions=functions,
+        function_call={"name": "conditional_relation_extraction"},
+    )
+    response_message = response["choices"][0]["message"]
+    return response_message
+</code></pre>
+
+        <p>Voila that's already the setup — now we simply call the function to extract the relations!</p>
+
+        <pre><code class="language-python"># Dummy example how this function is called.
+abstracts = ["[Placeholder scientific literature 1]", "[Placeholder scientific literature 2]", "[Placeholder scientific literature n]"]
+relations = [extract_relation(abstract) for abstract in abstracts]
+</code></pre>
+
+        <p>For a given abstract, the <code>extract_relation</code> function has extracted the relation A affects B in
+            the condition C ⇒ Relation(A -&gt; B | C). For clarification, a dummy example can be seen below.</p>
+
+        <img src="/static/images/cre_abstract.png" alt="Conditional Relation Extraction Example"
+            style="max-width: 100%; height: auto; margin-bottom: 20px;">
+
+        <p>We have seen how to set up a conditional relation and implement it in Python using GPT-4 with the OpenAI API.
+            Now let's have a look at a couple of conditional relation examples that the code, just as the one above,
+            could extract.</p>
+
+        <h2>Applying the Process: Real-World Use Cases</h2>
+
+        <p>Enough with theory, let’s crystallize how we can use this approach by observing use cases from different
+            domains:</p>
+
+        <img src="/static/images/cre_table.png" alt="Conditional Relation Extraction Table"
+            style="max-width: 100%; height: auto; margin-bottom: 20px;">
+
+        <p><strong>Table with examples from different domains how applied conditional relation extraction can look
+                like.</strong></p>
+
+        <p>These are some a handful of examples to underline that using this approach, plenty of use cases are just
+            waiting to be tackled. Feeling inspired?</p>
+
+        <h2>Real-World Challenges and How to Overcome Them</h2>
+
+        <p>While extracting conditional relations from small texts is straightforward, larger documents or
+            cross-document analysis pose challenges:</p>
+
+        <h3>Extracting from Large Documents</h3>
+
+        <p>Extracting from large documents can be challenging due to the limited context window size of LLMs:</p>
+
+        <p><strong>Solution:</strong> Implement intention-aware document summarization. By chunking and summarizing with
+            an intent to preserve the desired relation, we maintain essential information while managing document size.
+            Once reduced in size, we can supply the document into the prompt. If still too large, why not redo this
+            exercise till it fits?</p>
+
+        <h3>Combining Multiple Relations into a Global Graph</h3>
+
+        <p><strong>Solution:</strong> Normalize components using shared ontologies or numerical transformations (like
+            BERT embeddings or n-grams). This helps in constructing a global relation graph based on the entities'
+            similarity.</p>
+
+        <h2>Concluding Thoughts</h2>
+
+        <p>Conditional relation extraction is a step towards activating unstructured data and making it comprehensible
+            for both humans and machines. Using a form of hyper summarization is a new way to interact with and
+            understand large volumes of data.</p>
+
+        <p>Having a fun application in mind or just want to chat, get in touch via <a
+                href="https://www.linkedin.com/in/philippwarmer/">LinkedIn</a>.</p>
+
+    </body>
+
+    </html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Little Things Around LLM Applications</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/monokai-sublime.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul,
+        ol {
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: rgb(121, 181, 191);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: rgb(101, 161, 171);
+            text-decoration: none;
+        }
+
+        pre code {
+            border-radius: 8px;
+            padding: 1em;
+            font-size: 14px;
+            line-height: 1.5;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom scrollbar for code blocks */
+        pre code::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        pre code::-webkit-scrollbar-thumb {
+            background-color: #666;
+            border-radius: 4px;
+        }
+
+        pre code::-webkit-scrollbar-track {
+            background-color: #333;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<a href="{{ url_for('index') }}#deep-dives" class="back-button"
+    onclick="sessionStorage.setItem('scrollToDeepDives', 'true'); return true;">Back to Deep Dives</a>
+
+
+<body>
+    <div class="content">
+        <h1>Swift Exploration of World Literature</h1>
+
+        <p><em>Written by Philipp Warmer</em></p>
+
+        <p>With the advent of large language models, generating cohesive text has become trivial. Thus, the available
+            text corpus will be composed more and more of AI-generated text. Until then, we wanted to take a step back
+            and explore a part of the world’s literature in an attempt to quantify its magic.</p>
+
+        <h2>Before We Start — Why Does Written Content Even Matter?</h2>
+        <p>Written texts represent the key element of development and transmission of human culture. Currently, we have
+            access to millions of books written over thousands of years. The recent advances in natural language
+            processing (NLP) offer an unprecedented toolbox to systematically analyze literature at scale.</p>
+        <p>Here, we used a set of NLP approaches to characterize over 90 of the most downloaded books from <a
+                href="https://www.gutenberg.org/">Project Gutenberg</a>, a collection offering a vast number of free
+            eBooks. Taking an unsupervised approach, we wanted to learn:</p>
+        <ul>
+            <li>How do writing styles differ between books?</li>
+            <li>How does the sentiment change throughout books?</li>
+            <li>How are certain writing styles associated with the overall sentiment of a book?</li>
+            <li>How do transformers map a large corpus of literature, and do they expose the underlying genre
+                composition?</li>
+        </ul>
+
+        <h2>1. Books Have Many Unique Characteristics and It's Not Only Their Number of Pages</h2>
+        <p>Literature is often analyzed either by investigating the story arc of an individual book or by contrasting
+            two books across different dimensions. However, a systematic assessment of the commonalities and differences
+            of a comprehensive collection of popular literature is not as often done. Various approaches have been
+            developed to describe a book purely by the composition of its sentences and underlying words. Among those
+            characteristics are the dependency distance of words, the proportion of unique words, or the readability of
+            a sentence. We were curious how these features vary across the different books.</p>
+        <p>To this end, we studied more than 90 prominent books from 80 authors of Project Gutenberg spanning a vast
+            publishing date range (Figure 1A). We subjected the books to minimal preprocessing and computed a set of
+            text descriptives using the <a href="https://github.com/HLasse/TextDescriptives">hlasse package</a> (Figure
+            1B). For an in-depth explanation, please check out the GitHub repository. Afterwards, we calculated the
+            variance of each feature across the books (Figure 1B). These features can be loosely grouped into two
+            categories: (1) general text attributes such as the number of unique words and (2) readability
+            characteristics such as ease of reading. These two categories are colored in a darker and lighter color,
+            respectively.</p>
+        <p>As expected, the total number of characters (letters) per book, corresponding to the book length, showed the
+            highest variance. Two other highly variable features were the proportion of unique words per book, which
+            signifies a large difference in vocabulary size, and the readability of books. Among the smallest variations
+            found were the average word length and the average number of syllables per word. All these observations
+            highlight that authors have distinct writing styles resulting in a diverse set of text characteristics
+            beyond the length of a book.</p>
+
+        <figure>
+
+            <img src="/static/images/swift_f1.png" alt="Overview on book characteristics"
+                style="max-width: 100%; height: auto; margin-bottom: 20px;">
+
+            <figcaption><strong>Figure 1:</strong> Overview on book characteristics. A) Distribution of analyzed books
+                with regard to their publishing date. B) Median sorted text characteristics per book. C) Associated
+                variance. Characteristics related to readability are labeled in darker colors; descriptive book
+                characteristics in lighter colors.</figcaption>
+        </figure>
+
+        <h2>2. A Happy Beginning Doesn’t Protect from an Unhappy End</h2>
+        <p>In addition to the text characteristics, we determined the sentiment of each book based on the word
+            composition using <a href="https://github.com/metalcorebear/NRCLex">NRCLex</a>. NRCLex calculated the
+            sentiment score for each book, and we normalized it so that books with a positive sentiment got a positive
+            and less positive books got a negative score. As expected, we found the “Sabotage Field Manual’’ and “The
+            War of the Worlds” were among the books with the most negative sentiment (Figure 2A). Among the most neutral
+            books were “Thus Spoke Zarathustra” and “Don Quixote”. “The Happy Prince” was one of the most positive
+            books.</p>
+        <p>To get a more fine-grained understanding of how the sentiment changes throughout a book, we split the content
+            of each book into the five Freytag's pyramid parts pioneered by novelist Gustav Freytag. These are
+            exposition, rising action, climax, falling action, and resolution (Figure 2B). For each of the five parts of
+            each book, we determined the sentiment and subjected it to K-means based inertia drop analysis to identify
+            the number of meaningful clusters. We found that three clusters separate the data best (Figure 2C). Looking
+            at the progression, we saw that two of the three sentiment groups had high sentiment scores that stayed
+            relatively unchanged throughout the book. The third group, corresponding to the least positive books, starts
+            out relatively positive in the exposition, and when the rising action occurs, their sentiment drops by
+            approximately 40% and remains low.</p>
+        <p>Overall, we see that the books analyzed here exhibit a broad distribution of sentiment scores and can be
+            grouped into three groups with specific sentiment changes throughout the books’ progression.</p>
+
+        <figure>
+            <!-- Placeholder for Figure 2 -->
+            <img src="/static/images/swift_f2.png" alt="Positional analysis of sentiment"
+                style="max-width: 100%; height: auto; margin-bottom: 20px;">
+
+            <figcaption><strong>Figure 2:</strong> Positional analysis of sentiment. A) Mean normalized sentiment score
+                across all books. B) Scheme depicting how books are split in parts according to Freytag's pyramid. C)
+                Sentiment cluster group by K-means inertia drop projected onto T-SNE. D) Sentiment score across the
+                three book clusters across the relative book position as defined by Freytag's pyramid (A), on the right
+                the cumulative density plot of the positive sentiment fraction across the book.</figcaption>
+        </figure>
+
+        <h2>3. Sentiment and Writing Style Are Connected?!</h2>
+        <p>To identify if text characteristics are associated with the text sentiment, we correlated them across books
+            (Figure 3A). We found that the average dependency distance (Figure 3B) and the Flesch reading ease metric
+            (Figure 3C) are most correlated with the sentiment score, meaning they describe the data best. Mean
+            dependency distance shows how close or distant related words in a sentence are, whereas Flesch reading ease
+            is a commonly used metric for readability based on the number of syllables and sentences in relation to the
+            total number of words, where a high number corresponds to a more readable text.</p>
+        <p>Despite having weak correlations, these results indicate that “hard-to-read” books tend to have a more
+            positive sentiment, whereas negative sentiment is delivered in an easier-to-read fashion.</p>
+
+        <figure>
+            <!-- Placeholder for Figure 3 -->
+            <img src="/static/images/swift_f3.png" alt="Associating text characteristics and sentiment"
+                style="max-width: 100%; height: auto; margin-bottom: 20px;">
+            <figcaption><strong>Figure 3:</strong> Associating text characteristics and sentiment. A) Sorted Spearman
+                correlation coefficients from associating the positive sentiment with given text characteristics. B)
+                Correlation of sentiment score with mean dependency distance and C) Flesch reading ease distance.
+            </figcaption>
+        </figure>
+
+        <h2>4. On the Edges of the Book Landscape Distinct Genres Can Be Found</h2>
+        <p>Next, we moved beyond descriptive text characteristics and focused on the content of each book. To get a more
+            fine-grained resolution on each book, we chunked them into pages of 100 lines each, resulting in a total of
+            approximately 10,000 pages across all books. For each page, we computed the text embeddings using
+            Bidirectional Encoder Representations from Transformers (BERT) (<a
+                href="https://github.com/explosion/spacy-transformers">spacy-transformers</a>), resulting in a numerical
+            representation of the text content of a given page. Next, we projected the numerical 768-dimensional text
+            representation onto two dimensions using T-SNE.</p>
+        <p>While the 2D distribution was overall homogeneous, we observed larger, distinct accumulations of pages in the
+            fringe regions. Hypothesizing that especially very similar books would collocate there, we highlighted books
+            with similar genres (Figure 4C). In line with our expectation, we found distinct book genres at the
+            extremes. In the northeast, books from Adventure Fiction such as “Moby Dick” or “Treasure Island” were
+            located. Below it in the southeast, we found the literature category of Epic Poetry, home to “The Iliad”,
+            “The Odyssey”, and “The History of the Peloponnesian War”. Next to it, on a particularly distinct
+            point-cloud, inhabit the Russian Classics such as “Crime and Punishment” and “War and Peace”. Above it, in
+            the northwest, Philosophical Fiction can be found with books such as “Thus Spoke Zarathustra”, “The
+            Prophet”, and “The Christmas Story”.</p>
+        <p>Given that the Russian classics are among the most esteemed books in world literature and that our analysis
+            grouped them on a distinct patch on the book map, we were tempted to catch some of its essence of greatness
+            using a numerical approach. We philosophized that the most central page in the group of Russian Classics
+            would contain some of the group’s characteristic spirit. To this end, we determined the centroid of the
+            Russian classics. It was one of the last pages of "War and Peace" by Leo Tolstoy. It contained the scene
+            where Pierre and his wife are in the drawing room of the Countess and present her with a gift, to which she
+            responds, “It’s not the gift that’s precious, my dear, but that you give it to me”.</p>
+        <p>We conclude that BERT together with T-SNE dimensionality reduction does not only group books by their content
+            and presumably the overarching genre but can also help in identifying characteristic content of each group
+            resulting in a potentially unsupervised genre classification of books and key passages of literature at
+            large.</p>
+
+        <figure>
+            <!-- Placeholder for Figure 4 -->
+            <img src="/static/images/swift_f4.png" alt="Connecting books beyond text characteristics"
+                style="max-width: 100%; height: auto; margin-bottom: 20px;">
+            <figcaption><strong>Figure 4:</strong> Connecting books beyond text characteristics. Books in the extremes
+                are highlighted and grouped. The density kernel of the three largest and most exposed books are shown
+                per group.</figcaption>
+        </figure>
+
+        <h2>So What's the TL;DR?</h2>
+        <p>Here we analyzed over 90 of the most downloaded books, spanning different time periods and cultures through
+            different lenses. Generally, we found that books do not only vary a lot in length but also in the size of
+            vocabulary used. Ranking the books by their overall sentiment showed that among the most positive books were
+            “The Problems of Philosophy” and “The Happy Prince”, whereas the most negative book was the “Simple Sabotage
+            Field Manual”.</p>
+        <p>We determined three sentiment groups among the analyzed books. While each of the three groups had a different
+            average sentiment value, only one group showed a change in sentiment throughout the story progression. As a
+            next step, one could delineate the different groups into their underlying emotions such as fear, anger,
+            anticipation, trust, surprise, sadness, disgust, joy, and further establish subgroups. In addition, it would
+            be exciting to see whether the categorization of these groups holds true when increasing the scope of the
+            books but also using orthogonal means to determine the sentiment. If so, this would hint at three,
+            surprisingly simple, sentiment archetypes in books.</p>
+        <p>Another intriguing yet less clear finding was that books that are easier to read tend to be more negative in
+            sentiment—the inverse of what Leo Tolstoy writes in his novel <em>Anna Karenina</em>: “Happy families are
+            all alike; every unhappy family is unhappy in its own way”.</p>
+        <p>Ultimately, the BERT-based literature map showed that distinct corners are inhabited by the different genres
+            of Adventure Fiction, Epic Poetry, Russian Classics, and Philosophical Fiction. We also used this book map
+            to determine core pieces of literature by selecting the centroid page of each group. Next steps could focus
+            on: 1) expanding the book collection of the literature landscape, e.g., with regards to the authors' origin,
+            or 2) mapping different levels of metadata on the landscape to chart out differences within genres.</p>
+
+        <p>Thanks to DONE for supporting this exploration—a special thanks to Heiko Kromer.</p>
+        <p>If you enjoyed this analysis, have some ideas for follow-ups, or another random idea, please feel free to
+            reach out on <a href="https://www.linkedin.com/in/philippwarmer/">LinkedIn</a>.</p>
+    </div>
+</body>
+
+</html>

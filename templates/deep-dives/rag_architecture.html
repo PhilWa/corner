@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Little Things Around LLM Applications</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul,
+        ol {
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: rgb(121, 181, 191);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: rgb(101, 161, 171);
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="{{ url_for('index') }}#deep-dives" class="back-button"
+        onclick="sessionStorage.setItem('scrollToDeepDives', 'true'); return true;">Back to Deep Dives</a>
+
+    <h1>The Little Things Around LLM Applications</h1>
+    <h2>RAG Applications and Industry Insights</h2>
+    <p><em>Written by Andrei Dmitrenko and Philipp Warmer</em></p>
+
+    <p>In recent years, Generative AI (GenAI) has taken center stage, especially with the advent of Large Language
+        Models (LLMs). These models promise to transform knowledge work, and they seem to be living up to expectations.
+        The latest LLMs are nearing human-level performance on several benchmarks (Street et al. 2024). For more
+        details, see <a href="https://arxiv.org/abs/2405.18870" target="_blank">Street et al., 2024</a>. This progress
+        has caught the attention of corporations, which are now integrating LLMs into their workflows to boost
+        productivity and efficiency in business processes.</p>
+
+    <p>One prominent way to integrate GenAI into business processes is by building applications around generic
+        foundational LLMs. The prime spot is currently taken by so-called Retrieval Augmented Generation (RAG)
+        applications. In essence, RAG enhances the AI's capabilities by providing the LLM with relevant chunks of
+        private knowledge, selected based on semantic similarity, during the generation process. This way, the
+        application provides more accurate and contextually relevant outputs without the need to train a model to
+        incorporate new pieces of information.</p>
+
+    <h3>Figure 1 - Schematic of a Generic RAG Application Workflow:</h3>
+    <img src="/static/images/rag_p1.png" alt="Schematic of a Generic RAG Application Workflow"
+        style="max-width: 100%; height: auto; margin-bottom: 20px;">
+    <ol>
+        <li><strong>Prompt + Query:</strong> The user begins by providing a prompt and specifying a query. This input
+            serves as the initial request for information or assistance from a user to an AI system.</li>
+        <li><strong>Query:</strong> The system sends the query to available knowledge sources. These sources can include
+            databases, documents, and other repositories of information or even external APIs.</li>
+        <li><strong>Context:</strong> The system retrieves relevant context from the knowledge sources. This retrieved
+            context enriches the initial prompt with the information the user is looking for.</li>
+        <li><strong>Prompt + Query + Context:</strong> The enriched prompt, query, and context are sent to the LLM. This
+            step ensures that the model has all the necessary information to generate a high-quality response.</li>
+        <li><strong>Generated Response:</strong> The LLM processes the input and generates a response. This response is
+            then provided to the user, delivering an accurate and contextually relevant answer.</li>
+    </ol>
+
+    <p>Customizing LLM applications depends heavily on understanding the unique needs and constraints of the
+        corresponding industry or business domain. For instance, a healthcare application prioritizing patient data
+        privacy might have stringent security protocols, whereas a customer service bot could value quick response times
+        and high availability more.</p>
+
+    <h2>Survey on Design Considerations for RAG Applications</h2>
+    <p>We conducted a survey among professionals building such applications in alignment with business stakeholders. Our
+        primary goal was to understand the expectations and pain points of business professionals when dealing with
+        LLM-based solutions. We asked participants to assign an importance to the following features for a GenAI app in
+        their current business domains, using a scale from 1 to 5:</p>
+    <ul>
+        <li>Response speed (low waiting times)</li>
+        <li>Cost-efficiency (per task completed)</li>
+        <li>Consistency (similar results for similar tasks)</li>
+        <li>Security of information (no leakage of internal sensitive data)</li>
+        <li>Controllable usage (prevention of unintended use)</li>
+        <li>Appropriate response style (no offensive or unethical content)</li>
+        <li>Accurate answers (correct and grounded in reality)</li>
+        <li>Customized ETL workflows and the resulting data quality</li>
+        <li>Scalability of the application to meet varying business needs</li>
+    </ul>
+
+    <p>Instead of a broad survey, we targeted data professionals at D ONE who worked on GenAI projects closely
+        interacting with business stakeholders in 2024. This focused approach ensured we obtained relevant insights from
+        recent projects in legal-tech, reinsurance, manufacturing customer support, service marketplace, and consulting.
+    </p>
+
+    <h2>Insights from the Survey</h2>
+    <img src="/static/images/rag_plot.png" alt="Questionnaire Results"
+        style="max-width: 100%; height: auto; margin-bottom: 20px;">
+
+    <ol>
+        <li><strong>Tradeoff Between Accuracy and Response Speed:</strong> Balancing the accuracy of AI-generated
+            outputs with the need for quick responses is a common challenge. High accuracy often requires more
+            processing time, which in turn impacts the user experience.</li>
+        <li><strong>Hidden Requirement of Security:</strong> Ensuring the security of AI systems and the data they
+            handle is crucial. This includes protecting against data breaches, ensuring compliance with privacy
+            regulations, and preventing unwanted AI behavior.</li>
+        <li><strong>A Mature Data Culture is the Foundation:</strong> Successful implementation of generative AI relies
+            on a robust data culture within the organization, emphasizing high-quality data.</li>
+    </ol>
+    <img src="/static/images/rag_p2.png" alt="RAG Components"
+        style="max-width: 100%; height: auto; margin-bottom: 20px;">
+    <p>Now that we have hands-on experience building such apps in various business domains and analyzed the end-user
+        perspectives, we can emphasize the above key insights and map them onto the respective parts of the RAG
+        architecture.</p>
+    <img src="/static/images/rag_p3.png" alt="RAG Components"
+        style="max-width: 100%; height: auto; margin-bottom: 20px;">
+
+    <h2>Conclusion</h2>
+    <p>From our observations as a Data & AI consultancy firm, RAG is a widespread solution that effectively addresses
+        business needs across industry sectors and continues to improve. If RAG is here to stay, it certainly requires a
+        systematic view of its architecture, highlighting critical components and potential vulnerabilities.</p>
+
+    <p>Looking forward, we anticipate a new level of complexity in building RAG apps introduced by multimodality,
+        involving simultaneous processing of textual, imaging, audio, and video data. This emphasizes the importance of
+        secure architectures to address potential vulnerabilities. At D ONE, we are quickly accumulating practical
+        knowledge on developing and deploying GenAI apps, and brainstorming solutions even before new challenges emerge.
+    </p>
+
+    <p>Looking for a companion on your journey towards a data-driven enterprise leveraging the most recent AI
+        technologies? <a href="https://d-one.ai/" target="_blank">Reach out to us</a>.</p>
+</body>
+
+</html>
