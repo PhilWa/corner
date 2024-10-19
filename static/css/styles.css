@@ -701,7 +701,7 @@ header,
 .deep-dives-list {
     font-family: var(--font-family-serif);
     color: var(--off-white);
-    font-size: 1.6rem;
+    font-size: var(--font-size-large);
     /* Adjust this value if your description uses a different size */
     line-height: 1.6;
 }
