@@ -661,6 +661,7 @@ header,
 
 .card-header h3 {
     margin: 0;
+    color: var(--dark-gray);
 }
 
 .podcast-icon {
