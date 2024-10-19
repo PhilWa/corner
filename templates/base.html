@@ -76,10 +76,46 @@
                 });
             }
 
+            const gameOfLifeSection = document.getElementById('game-of-life');
             const canvas = document.getElementById('gameCanvas');
-            if (canvas) {
-                initGameOfLife(canvas);
+            if (gameOfLifeSection && canvas) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            initGameOfLife(canvas);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                observer.observe(gameOfLifeSection);
             }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const text = "Tech in Switzerland";
+                const typedTextSpan = document.getElementById("typed-text");
+                const cursorSpan = document.querySelector(".cursor");
+
+                const typingDelay = 100;
+                const erasingDelay = 100;
+                const newTextDelay = 2000; // Delay between current and next text
+                let charIndex = 0;
+
+                function type() {
+                    if (charIndex < text.length) {
+                        if (!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
+                        typedTextSpan.textContent += text.charAt(charIndex);
+                        charIndex++;
+                        setTimeout(type, typingDelay);
+                    }
+                    else {
+                        cursorSpan.classList.remove("typing");
+                    }
+                }
+
+                if (typedTextSpan) {
+                    setTimeout(type, newTextDelay + 250);
+                }
+            });
         });
     </script>
 </body>

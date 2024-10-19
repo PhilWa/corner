@@ -147,8 +147,28 @@ header {
     font-size: var(--font-size-xxl);
     color: var(--off-white);
     margin-bottom: 2rem;
-    line-height: 1.2;
     font-weight: 700;
+    display: inline-block;
+}
+
+.cursor {
+    display: inline-block;
+    color: var(--off-white);
+    margin-left: 5px;
+    /* Adjusted spacing */
+    animation: blink .7s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
 }
 
 .center-form {
@@ -615,3 +635,5 @@ header,
         /* Smaller font size for mobile */
     }
 }
+
+</rewritten_file>

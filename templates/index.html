@@ -3,7 +3,10 @@
 
 <!-- Section 1: Landing Page -->
 <div class="initial-view" id="home">
-    <h1 class="main-title">Tech in Switzerland</h1>
+    <h1 class="main-title">
+        <span id="typed-text"></span>
+        <span class="cursor"> ~ </span>
+    </h1>
     <div class="center-form">
         <h2 class="newsletter-title">Sign up for weekly stories</h2>
         <form method="post" action="{{ url_for('index') }}">
@@ -67,5 +70,8 @@
     </div>
     <canvas id="gameCanvas"></canvas>
 </div>
+
+<!-- Include the Typing Effect Script -->
+<script src="{{ url_for('static', filename='js/typing-effect.js') }}"></script>
 
 {% endblock %}
