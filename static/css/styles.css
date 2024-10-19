@@ -281,7 +281,7 @@ header {
     color: var(--off-white);
     font-size: var(--font-size-large);
     margin-bottom: 50px;
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
 .deep-dives-list {
@@ -551,8 +551,6 @@ header {
     /* ... the rest of your responsive styles ... */
 }
 
-/* Additional Styles */
-/* ... your existing additional styles ... */
 
 /* Apply serif font to the body */
 body {
@@ -573,6 +571,7 @@ header,
 .center-form,
 .newsletter-title,
 .latest-stories-section .card-container,
+.latest-stories-description,
 .deep-dives-description,
 .deep-dives-list a,
 .game-of-life-section .section-instruction {
