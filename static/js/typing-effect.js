@@ -1,46 +1,45 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const initialText = "Tech from Switzerland";
-    const newText = "Innovation from Switzerland";
+    const phrases = [
+        "Tech from Switzerland",
+        "Startups from Switzerland",
+        "Innovation from Switzerland"
+    ];
     const typedTextSpan = document.getElementById("typed-text");
     const cursorSpan = document.querySelector(".cursor");
 
     const initialDelay = 100; // Delay before typing starts (in milliseconds)
     const typingSpeed = 40; // Typing speed (in milliseconds)
-    const pauseDuration = 4000; // 4-second pause
+    const pauseDuration = 2000; // 2-second pause between phrases
+    let phraseIndex = 0;
     let charIndex = 0;
 
-    function typeInitialText() {
-        if (charIndex < initialText.length) {
-            typedTextSpan.textContent += initialText.charAt(charIndex);
+    function typePhrase() {
+        if (charIndex < phrases[phraseIndex].length) {
+            typedTextSpan.textContent = phrases[phraseIndex].substring(0, charIndex + 1);
             charIndex++;
-            setTimeout(typeInitialText, typingSpeed);
+            setTimeout(typePhrase, typingSpeed);
         } else {
-            setTimeout(startOverwriting, pauseDuration);
+            if (phraseIndex < phrases.length - 1) {
+                setTimeout(startNextPhrase, pauseDuration);
+            } else {
+                // Remove the cursor after the last phrase is typed
+                setTimeout(() => {
+                    cursorSpan.style.display = 'none';
+                }, 1000);
+            }
         }
     }
 
-    function startOverwriting() {
+    function startNextPhrase() {
+        phraseIndex++;
         charIndex = 0;
-        overwriteText();
-    }
-
-    function overwriteText() {
-        if (charIndex < newText.length) {
-            typedTextSpan.textContent = newText.slice(0, charIndex + 1) + initialText.slice(charIndex + 1);
-            charIndex++;
-            setTimeout(overwriteText, typingSpeed);
-        } else {
-            // Typing complete, remove cursor after a short delay
-            setTimeout(() => {
-                cursorSpan.style.display = 'none';
-            }, 1000);
-        }
+        typePhrase();
     }
 
     function startTyping() {
         typedTextSpan.textContent = '';
         cursorSpan.style.display = 'inline-block';
-        setTimeout(typeInitialText, initialDelay);
+        setTimeout(typePhrase, initialDelay);
     }
 
     if (typedTextSpan && cursorSpan) {
