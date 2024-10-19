@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const typedTextSpan = document.getElementById("typed-text");
     const cursorSpan = document.querySelector(".cursor");
 
-    const initialDelay = 500; // Delay before typing starts (in milliseconds)
-    const typingSpeed = 80; // Increased typing speed for slower effect (in milliseconds)
+    const initialDelay = 100; // Delay before typing starts (in milliseconds)
+    const typingSpeed = 40; // Increased typing speed for slower effect (in milliseconds)
     let charIndex = 0;
 
     function typeCharacter() {
