@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const phrases = [
         "Tech",
-        "Start-up",
+        "Start-ups",
         "Innovation from Switzerland"
     ];
     const typedTextSpan = document.getElementById("typed-text");
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const initialDelay = 50; // Delay before typing starts (in milliseconds)
     const typingSpeed = 40; // Typing speed (in milliseconds)
-    const pauseDuration = 1300; // 2-second pause between phrases
+    const pauseDuration = 1100; // 2-second pause between phrases
     let phraseIndex = 0;
     let charIndex = 0;
 
