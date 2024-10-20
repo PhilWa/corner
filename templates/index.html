@@ -31,7 +31,10 @@
                 <div class="card-header">
                     <h3>{{ item.upload_date }}</h3>
                     {% if item.is_podcast %}
-                    <i class="fas fa-podcast podcast-icon"></i>
+                    <div class="podcast-container">
+                        <span>listen here: &nbsp;</span>
+                        <i class="fas fa-podcast podcast-icon"></i>
+                    </div>
                     {% endif %}
                 </div>
                 <div class="card-content">

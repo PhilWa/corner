@@ -667,17 +667,28 @@ header,
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
 }
 
 .card-header h3 {
     margin: 0;
+}
+
+.podcast-container {
+    display: flex;
+    align-items: center;
+}
+
+.card-header span {
+    margin-right: 2px;
+    /* Reduced margin */
+    font-size: 1.2em;
     color: var(--dark-gray);
 }
 
 .podcast-icon {
     color: var(--teal);
-    font-size: 1.8em;
+    font-size: 2em;
+    vertical-align: middle;
 }
 
 .deep-dives-list a {
