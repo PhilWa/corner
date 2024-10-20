@@ -1,15 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
     const phrases = [
-        "Tech from Switzerland",
-        "Startups from Switzerland",
+        "Tech",
+        "Start-up",
         "Innovation from Switzerland"
     ];
     const typedTextSpan = document.getElementById("typed-text");
     const cursorSpan = document.querySelector(".cursor");
 
-    const initialDelay = 100; // Delay before typing starts (in milliseconds)
+    const initialDelay = 50; // Delay before typing starts (in milliseconds)
     const typingSpeed = 40; // Typing speed (in milliseconds)
-    const pauseDuration = 2000; // 2-second pause between phrases
+    const pauseDuration = 1300; // 2-second pause between phrases
     let phraseIndex = 0;
     let charIndex = 0;
 
