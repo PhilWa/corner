@@ -11,6 +11,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
     <style>
+        :root {
+            --off-white: rgb(252, 252, 253);
+            --pink: rgb(222, 120, 159);
+            --teal: rgb(121, 181, 191);
+        }
+
         body {
             font-family: Georgia, 'Times New Roman', Times, serif;
             line-height: 1.6;
@@ -18,6 +24,8 @@
             margin: auto;
             padding: 20px;
             color: #333;
+            padding-top: 120px;
+            /* Add padding to prevent content overlap */
         }
 
         h1,
@@ -33,7 +41,7 @@
         }
 
         a:hover {
-            text-decoration: underline;
+            text-decoration: none;
         }
 
         ul,
@@ -45,21 +53,71 @@
             margin-bottom: 10px;
         }
 
-        .back-button {
+        .button-container {
             position: fixed;
             top: 20px;
             left: 20px;
-            background-color: rgb(121, 181, 191);
-            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+            /* Ensure buttons are above other content */
+        }
+
+        .nav-button {
             padding: 10px 20px;
             text-decoration: none;
             font-family: Arial, sans-serif;
             transition: background-color 0.3s ease;
+            color: var(--off-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            font-size: 16px;
+        }
+
+        .back-button {
+            background-color: var(--teal);
         }
 
         .back-button:hover {
             background-color: rgb(101, 161, 171);
-            text-decoration: none;
+        }
+
+        .listen-button {
+            background-color: var(--pink);
+        }
+
+        .listen-button:hover {
+            background-color: rgb(202, 100, 139);
+        }
+
+        .listen-button i {
+            margin-left: 10px;
+        }
+
+        /* Mobile optimization */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 140px;
+                /* Increase padding for mobile */
+            }
+
+            .button-container {
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100%;
+                padding: 10px;
+                background-color: rgba(255, 255, 255, 0.9);
+                box-sizing: border-box;
+            }
+
+            .nav-button {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
         }
 
         pre code {
@@ -89,11 +147,13 @@
 </head>
 
 <body>
-    <a href="{{ url_for('index') }}#deep-dives" class="back-button">Back to Deep Dives</a>
-    <a href="#" class="listen-button">
-        Listen in
-        <i class="fas fa-podcast"></i>
-    </a>
+    <div class="button-container">
+        <a href="{{ url_for('index') }}#deep-dives" class="nav-button back-button">Back to Deep Dives</a>
+        <a href="#" class="nav-button listen-button">
+            Listen in
+            <i class="fas fa-podcast"></i>
+        </a>
+    </div>
 
     <!DOCTYPE html>
     <html lang="en">
