@@ -149,7 +149,8 @@
 <body>
     <div class="button-container">
         <a href="{{ url_for('index') }}#deep-dives" class="nav-button back-button">Back to Deep Dives</a>
-        <a href="#" class="nav-button listen-button">
+        <a href="{{ url_for('static', filename='news/thecorner-test.mp3') }}" class="nav-button listen-button"
+            target="_blank">
             Listen in
             <i class="fas fa-podcast"></i>
         </a>
