@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const phrases = [
         "Tech",
+        "Science",
         "Start-ups",
         "Innovation from Switzerland"
     ];
@@ -8,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const cursorSpan = document.querySelector(".cursor");
 
     const initialDelay = 50; // Delay before typing starts (in milliseconds)
-    const typingSpeed = 40; // Typing speed (in milliseconds)
-    const pauseDuration = 1100; // 2-second pause between phrases
+    const typingSpeed = 35; // Typing speed (in milliseconds)
+    const pauseDuration = 900; // 2-second pause between phrases
     let phraseIndex = 0;
     let charIndex = 0;
 
