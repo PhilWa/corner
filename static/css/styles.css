@@ -297,14 +297,26 @@ header {
 }
 
 .deep-dives-list a {
+    position: relative;
+    padding-right: 3em;
+    /* Increased padding to accommodate both icons */
     display: flex;
     align-items: center;
-    text-decoration: none;
-    color: var(--off-white);
-    /* Makes the text off-white */
-    width: 100%;
-    max-width: 500px;
-    /* Adjust this value to set the desired absolute length */
+    justify-content: space-between;
+}
+
+.deep-dives-list .icons-container {
+    position: absolute;
+    right: 0;
+    display: flex;
+    align-items: center;
+}
+
+.deep-dives-list .podcast-icon,
+.deep-dives-list .text-icon {
+    color: inherit;
+    font-size: 0.9em;
+    margin-left: 5px;
 }
 
 .deep-dive-title {
@@ -312,15 +324,6 @@ header {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.text-icon {
-    margin-left: 10px;
-    /* Adds some space between the text and the icon */
-    flex-shrink: 0;
-    /* Prevents the icon from shrinking */
-    color: var(--off-white);
-    /* Makes the icon off-white to match the text */
 }
 
 /* If you need to adjust the bullet color */
@@ -693,19 +696,29 @@ header,
 
 .deep-dives-list a {
     position: relative;
-    padding-right: 1.5em;
-    /* Add some space for the icon */
+    padding-right: 2.5em;
+    /* Increased padding to accommodate both icons */
+    /* Add some space for the icons */
 }
 
-.deep-dives-list .text-icon {
+.deep-dives-list .text-icon,
+.deep-dives-list .podcast-icon {
     position: absolute;
-    right: 0;
     top: 50%;
     transform: translateY(-50%);
     color: inherit;
     /* Use the same color as the text */
     font-size: 0.9em;
     /* Slightly smaller than the text */
+}
+
+.deep-dives-list .podcast-icon {
+    right: 1.5em;
+    /* Position podcast icon to the left of the text icon */
+}
+
+.deep-dives-list .text-icon {
+    right: 0;
 }
 
 .deep-dives-description,
@@ -756,4 +769,29 @@ header,
 /* If you need to adjust the bullet color */
 .deep-dives-list li::marker {
     color: var(--off-white);
+}
+
+.listen-button {
+    position: fixed;
+    top: 70px;
+    /* Positioned below the back button */
+    left: 20px;
+    background-color: var(--pink);
+    color: var(--off-white);
+    padding: 10px 20px;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.listen-button:hover {
+    background-color: rgb(202, 100, 139);
+    /* Darker shade of pink */
+    text-decoration: none;
+}
+
+.listen-button i {
+    margin-left: 10px;
 }
