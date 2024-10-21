@@ -8,7 +8,12 @@
         <span class="cursor">|</span>
     </h1>
     <div class="center-form">
-        <h2 class="newsletter-title">Sign up for weekly news</h2>
+        <h2 class="newsletter-title">
+            Sign up for weekly news.
+            <a href="{{ url_for('static', filename='news/thecorner-test.mp3') }}" class="listen-link" target="_blank">
+                Listen in <i class="fas fa-podcast"></i>
+            </a>
+        </h2>
         <form method="post" action="{{ url_for('index') }}">
             <input type="email" name="email" placeholder="Your email address" required>
             <button type="submit">Sign Up</button>

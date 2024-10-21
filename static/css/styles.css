@@ -795,3 +795,38 @@ header,
 .listen-button i {
     margin-left: 10px;
 }
+
+.newsletter-title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    /* This creates a small, consistent gap between items */
+}
+
+.listen-link {
+    font-size: inherit;
+    color: inherit;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.listen-link:hover {
+    text-decoration: underline;
+}
+
+.listen-link i {
+    margin-left: 5px;
+}
+
+@media (max-width: 600px) {
+    .newsletter-title {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .listen-link {
+        margin-top: 5px;
+    }
+}
