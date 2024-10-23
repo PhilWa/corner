@@ -85,19 +85,28 @@ def get_latest_news():
     )
     latest_files = html_files[:3]
 
+    # Define podcast files for each news item
+    podcast_files = [
+        "news/The-Corner 23.10.2024, 19.24.mp3",
+        "news/thecorner-test.mp3",
+        "news/thecorner-test.mp3",
+    ]
+
     news_items = []
-    for filename in latest_files:
+    for idx, filename in enumerate(latest_files):
         file_path = os.path.join(news_dir, filename)
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
         mod_time = os.path.getmtime(file_path)
         upload_date = datetime.fromtimestamp(mod_time).strftime("%B %d, %Y")
 
-        # Check if the file is a podcast (you might want to implement your own logic here)
-        is_podcast = True
-
         news_items.append(
-            {"upload_date": upload_date, "content": content, "is_podcast": is_podcast}
+            {
+                "upload_date": upload_date,
+                "content": content,
+                "is_podcast": True,
+                "podcast_url": podcast_files[idx] if idx < len(podcast_files) else None,
+            }
         )
     return news_items
 
