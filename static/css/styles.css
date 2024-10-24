@@ -907,11 +907,9 @@ header,
 
 .menu-icon {
     font-size: 18px;
-    /* Reduced from 24px */
     padding: 10px;
     display: block;
     color: var(--off-white);
-    /* Added off-white color */
 }
 
 .menu-dropdown {
@@ -926,7 +924,8 @@ header,
 }
 
 .menu-dropdown a {
-    color: inherit;
+    color: var(--off-white) !important;
+    /* Force off-white color */
     text-decoration: none;
     padding: 8px 20px;
     white-space: nowrap;
@@ -936,7 +935,6 @@ header,
     opacity: 0.7;
 }
 
-/* This is the key part that makes the hover work */
 .menu-wrapper:hover .menu-dropdown {
     display: flex;
 }
