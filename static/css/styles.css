@@ -948,3 +948,27 @@ header,
         text-align: center;
     }
 }
+
+.coming-soon-icon {
+    margin-left: 1px;
+    font-size: 0.9em;
+    color: var(--off-white);
+    opacity: 0.8;
+}
+
+.nav-link.disabled {
+    cursor: default;
+    pointer-events: none;
+    /* Prevents clicking */
+}
+
+/* Keep your existing menu-dropdown styles */
+.menu-dropdown a {
+    color: var(--off-white) !important;
+    text-decoration: none;
+    padding: 8px 20px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
