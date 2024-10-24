@@ -470,7 +470,6 @@ header {
     margin: 10px;
     padding: 20px;
     background-color: var(--off-white);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     transition: box-shadow 0.3s ease;
     display: flex;
