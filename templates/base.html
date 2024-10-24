@@ -11,6 +11,8 @@
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add this line if not already present -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
@@ -20,10 +22,15 @@
                 <h1><a href="{{ url_for('index') }}">the corner</a></h1>
             </div>
             <div class="header-right">
-                <a href="#latest-stories" class="nav-link" id="latest-stories-link">latest stories</a>
-                <a href="#deep-dives" class="nav-link" id="deep-dives-link">deep dives</a>
-                <a href="#game-of-life" class="nav-link" id="game-of-life-link">game of life</a>
-                <a href="https://www.linkedin.com/in/philippwarmer/" target="_blank" class="linkedin-link">contact</a>
+                <div class="menu-wrapper">
+                    <i class="fas fa-bars menu-icon"></i>
+                    <nav class="menu-dropdown">
+                        <a href="#latest-stories" class="nav-link">latest stories</a>
+                        <a href="#deep-dives" class="nav-link">deep dives</a>
+                        <a href="#game-of-life" class="nav-link">game of life</a>
+                        <a href="https://www.linkedin.com/in/philippwarmer/" target="_blank">contact</a>
+                    </nav>
+                </div>
             </div>
         </div>
     </header>

@@ -830,3 +830,124 @@ header,
         margin-top: 5px;
     }
 }
+
+.menu-container {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: inherit;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    min-width: 150px;
+    text-align: right;
+}
+
+/* Change this to trigger on menu-container hover instead of banner hover */
+.menu-container:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu li {
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-menu li a {
+    color: inherit;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    white-space: nowrap;
+    transition: opacity 0.3s ease;
+}
+
+.dropdown-menu li a:hover {
+    opacity: 0.7;
+}
+
+/* Ensure the menu is above other content */
+.banner {
+    z-index: 1000;
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+    .dropdown-menu {
+        position: fixed;
+        top: var(--header-height, 60px);
+        right: 0;
+        width: 100%;
+        background-color: inherit;
+        text-align: center;
+    }
+}
+
+.menu-wrapper {
+    position: relative;
+    cursor: pointer;
+}
+
+.menu-icon {
+    font-size: 18px;
+    /* Reduced from 24px */
+    padding: 10px;
+    display: block;
+    color: var(--off-white);
+    /* Added off-white color */
+}
+
+.menu-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    background: var(--pink);
+    min-width: 150px;
+    padding: 10px 0;
+}
+
+.menu-dropdown a {
+    color: inherit;
+    text-decoration: none;
+    padding: 8px 20px;
+    white-space: nowrap;
+}
+
+.menu-dropdown a:hover {
+    opacity: 0.7;
+}
+
+/* This is the key part that makes the hover work */
+.menu-wrapper:hover .menu-dropdown {
+    display: flex;
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+    .menu-dropdown {
+        position: fixed;
+        top: var(--header-height, 60px);
+        right: 0;
+        width: 100%;
+        text-align: center;
+    }
+}
